@@ -1,0 +1,63 @@
+
+{% extends 'app/base_login.html' %}
+
+{% block content %}
+{% load static %}
+	<!-- BANNER -->
+	<div class="section banner-page" data-background="{% static '/images/employee1.jpg' %}">
+		<div class="content-wrap pos-relative">
+			<div class="d-flex justify-content-center bd-highlight mb-2">
+				<div class="title-page">See All Services and Read More</div>
+			</div>
+			<p class="text-center text-white">Your pet's health and well-being are our top priority.</p>
+		</div>
+	</div>
+
+	<!-- BREADCRUMB -->
+	<div class="section bg-breadcrumb">
+		<div class="content-wrap py-0 pos-relative">
+			<div class="container">
+			    <nav aria-label="breadcrumb">
+				  <ol class="breadcrumb ">
+				    <li class="breadcrumb-item"><a href="{% url 'index1' %}" style="color: rgb(52, 52, 121);">Home</a></li>
+				    <li class="breadcrumb-item active" aria-current="page" style="color: rgb(216, 114, 77);">Services</li>
+				  </ol>
+				</nav>					
+			</div>
+		</div>
+	</div>
+
+	<!-- CONTENT -->
+	{% for i in key14 %}
+	<table class="table table-bordered">
+		<thead>
+		  <tr style="background: darkseagreen;">
+			<th style="color: black;">Service Name</th>
+			<th style="color: black;">Service Image</th>
+			<th> </th>
+			
+		  </tr>
+		</thead>
+		<tbody>
+			 
+		  <tr>
+			<td>
+				<h3 class="title"><a href="">{{i.Service_Name}}</a></h3>
+			</td>
+			<td>
+				<img src="{{MEDIA_URL}}{{i.post_image.url}}" class="avatar img-circle img-thumbnail" alt="avatar" width="200" height="100">
+			</td>
+			<td>
+				<a href="{% url 'showServicedescriptionafterLogin' pk=i.id %}" class="btn btn-secondary">Read More</a>
+			</td>
+		</tbody>
+		
+	  </table>
+	  {% endfor %}
+	
+	
+										
+									
+
+{% endblock %}
+	

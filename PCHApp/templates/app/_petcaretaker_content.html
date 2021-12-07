@@ -1,0 +1,282 @@
+{% block profile_content %}
+<div class="row ml-auto mr-auto mt-4 mb-4">
+    <div class="col-3">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+          aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+
+        <a class="nav-link" id="v-pills-service-tab" data-toggle="pill" href="#v-pills-service" role="tab"
+          aria-controls="v-pills-service" aria-selected="false">Post Service</a>
+
+        <a class="nav-link" id="v-pills-editService-tab" data-toggle="pill" href="#v-pills-editService" role="tab"
+          aria-controls="v-pills-editService" aria-selected="false">Edit Service</a>
+
+        <a class="nav-link" id="v-pills-servicebooking-tab" data-toggle="pill" href="#v-pills-servicebooking" role="tab"
+          aria-controls="v-pills-servicebooking" aria-selected="false">Manage Service Booking</a>
+
+        <a class="nav-link" id="v-pills-security-tab" data-toggle="pill" href="#v-pills-security" role="tab"
+          aria-controls="v-pills-security" aria-selected="false">Security</a>
+
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+          aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+      </div>
+    </div>
+
+    <div class="col-9">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          <form class="needs-validation form-contact p-4" novalidate="false" action="{% url 'profile_update' %}" method="POST"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <div class="input-group mb-3">
+                    <div class="form-group wrap-custom-file">
+                      <input type="file" name="user_image" id="user_image" accept=".jpg, .png" />
+                      <label for="user_image">
+                        <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <i class="icon-add fa fa-plus-circle"></i>
+                        <i class="icon-edit fa fa-edit d-none"></i>
+                      </label>
+                      <div class="invalid-feedback">Please enter fullname.</div>
+                    </div>
+                    <div class="input-group-append ml-3">
+                      <div class="form-group">
+                        {% if profile_data.FullName != '' %}
+                        <h3>{{profile_data.FullName}}</h3>
+                        {% else %}
+                        <h3>Hello Guest!</h3>
+                        {% endif %}
+        
+                        <h5>{{profile_data.Master.Email}}</h5>
+        
+                        {% if profile_data.Master.Role.Role == 'petcaretaker' %}
+                        <h6>Pet Care Taker</h6>
+                        {% else %}
+                        <h6>Hello Guest!</h6>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="row mt-2">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="fullname" class="h6">Full Name</label>
+                    <input type="text" class="form-control" id="fullname" name="fullname" value="{{profile_data.FullName}}"
+                      placeholder="Enter full name" required="">
+                    <div class="invalid-feedback">Please enter fullname.</div>
+                  </div>
+        
+                  <div class="form-group">
+                    <label for="mobile" class="h6">Mobile</label>
+                    <input type="text" name="mobile" id="mobile" class="form-control input-sm" maxlength="10"
+                      placeholder="Enter your mobile" value="{{profile_data.Mobile}}" required>
+                    <div class="invalid-feedback">Please enter your mobile number.</div>
+                  </div>
+        
+                  <div class="form-group ">
+                    <label for="gender" class="h6">Gender</label>
+                    <div class="pt-2 form-control">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="male" name="gender" value="m" class="m custom-control-input" required>
+                        <label class="custom-control-label" for="male">Male</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="female" name="gender" value="f" class="f custom-control-input" required>
+                        <label class="custom-control-label" for="female">Female</label>
+                        <br>
+                        <div class="invalid-feedback ml-2">Please choose your gender.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="address" class="h6">Address</label>
+                    <textarea class="form-control" id="address" name="address" rows="3"
+                      required>{{profile_data.Address}}</textarea>
+                    <div class="invalid-feedback">Please provide your address.</div>
+                  </div>
+        
+                </div>
+        
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="country" class="h6">Contry</label>
+                    <input type="text" class="form-control" id="country" name="country" value="{{profile_data.Contry}}"
+                      placeholder="Enter country" required="">
+                    <div class="invalid-feedback">Please enter country.</div>
+                  </div>
+        
+                  <div class="form-group">
+                    <label for="state" class="h6">State</label>
+                    <input type="text" name="state" id="state" class="form-control input-sm" maxlength="10"
+                      placeholder="Enter your state" value="{{profile_data.State}}" required>
+                    <div class="invalid-feedback">Please enter your state.</div>
+                  </div>
+        
+                  <div class="form-group">
+                    <label for="city" class="h6">City</label>
+                    <input type="text" name="city" id="city" class="form-control input-sm" maxlength="10"
+                      placeholder="Enter your city" value="{{profile_data.City}}" required>
+                    <div class="invalid-feedback">Please enter your city.</div>
+                  </div>
+        
+                  <div class="form-group">
+                    <label for="pincode" class="h6">Pincode</label>
+                    <input type="text" name="pincode" id="pincode" class="form-control input-sm" maxlength="10"
+                      placeholder="Enter your Pincode" value="{{profile_data.Pincode}}" required>
+                    <div class="invalid-feedback">Please enter your Pincode.</div>
+                  </div>
+        
+                </div>
+              </div>
+        
+              <div class="row mt-2">
+                <div class="col-12 text-center mt-4">
+                  <div class="form-group">
+                    <div id="success"></div>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+                      Update</button>
+                  </div>
+                  <div class="mt-2"></div>
+                  <p><em>We will send you email to confirm your appointment, after you've request an
+                      appointment.</em></p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-service" role="tabpanel" aria-labelledby="v-pills-service-tab">
+          <label class="h5">Post Services</label>
+          <div class="row mt-2" style="padding-top: 2em;">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="fullname" class="h6">Enter Service Name</label>
+                <input type="text" class="form-control" id="p_name" name="pname" placeholder="Enter Service Name" required="">
+                <div class="invalid-feedback">Please service Name.</div>
+              </div>
+        
+            </div>
+        
+            <div class="col-6">
+              <div class="form-group">
+                <label for="country" class="h6">Upload Image</label>
+                <input type="file" class="form-control" id="p_img" name="p_img" placeholder="Upload Image" required="">
+                <div class="invalid-feedback">Please enter country.</div>
+              </div>
+        
+            </div>
+          </div>
+          <div class="row mt-2" >
+            <div class="col-6">
+              <div class="form-group">
+                <label for="country" class="h6">Enter Your Service Description</label>
+                <label for="fullname" class="h6"></label>
+                <textarea id="p_message" class="form-control" rows="6" name="pdes" placeholder="Enter Your Service Description" required=""></textarea>
+                <div class="invalid-feedback">Please Enter Your Service Description.</div>
+              </div>
+        
+            </div>
+        
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-editService" role="tabpanel" aria-labelledby="v-pills-editService-tab">
+          <label class="h5">Edit Services</label>
+          <div class="table-responsive mt-4" style="padding-top: 2em;">   
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Employee Id</th>
+                  <th>Service Image</th>
+                  <th>Service Name</th>
+                  <th>Service Description</th>
+                  <th colspan="2" style="text-align: center;">Status</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                  
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td> 
+                  <td>
+                    <a href=""><button> UPDATE </button></a>
+                    
+                    <a href=""><button> DELETE </button></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-servicebooking" role="tabpanel" aria-labelledby="v-pills-servicebooking-tab">
+            <label class="h5">Booking History</label>
+            <div class="table-responsive mt-4">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Service Name</th>
+                    <th scope="col">Pet Care Taker</th>
+                    <th scope="col">Pet Name</th>
+                    <th scope="col">Date/Time</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+        <div class="tab-pane fade" id="v-pills-security" role="tabpanel" aria-labelledby="v-pills-security-tab">
+          <label class="h5">Change Password</label>
+          <form class="needs-validation form-contact mt-4" novalidate="false" action="{% url 'change_password' %}"
+            method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="password" class="h6">Current Password</label>
+                  <input type="password" class="form-control" id="password" name="current_password" placeholder="Enter current password"
+                     required>
+                  <div class="invalid-feedback">Please enter current password.</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="password" class="h6">New Password</label>
+                  <input type="password" class="form-control" id="password" name="new_password" placeholder="New password"
+                   required>
+                  <div class="invalid-feedback">Please create your new password.</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 text-center mt-4">
+              <div class="form-group">
+                <div id="success"></div>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-exchange mr-2" aria-hidden="true"></i>Change</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+          <label class="h5">Account Settings</label>
+          <div class="custom-control custom-switch mt-4">
+            <input type="checkbox" class="custom-control-input" id="deactivate">
+            <label class="custom-control-label" for="deactivate">Deactivate my account</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

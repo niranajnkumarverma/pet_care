@@ -1,0 +1,138 @@
+
+{% extends 'app/admin/Admin_base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="white-box">
+            <div class="d-md-flex mb-3">
+                <a href="{% url 'dashboard' %}"><input type="button" value="Go Back!"></a>
+                
+                <h3 class="box-title mb-0">Manage Doctor</h3>
+                <!-- <div class="col-md-3 col-sm-4 col-xs-6 ml-auto">
+                    <select class="form-control row border-top">
+                        <option>March 2017</option>
+                        <option>April 2017</option>
+                        <option>May 2017</option>
+                        <option>June 2017</option>
+                        <option>July 2017</option>
+                    </select>
+                </div> -->
+            </div>
+            {% if key21 %}
+            <div class="table-responsive">
+                <table class="table no-wrap">
+                    <thead>
+                        <tr>
+                            <th class="border-top-0">MASTER ID</th>
+                            
+                            <th class="border-top-0">DOCTOR ID</th>
+                            <th class="border-top-0">DOCTOR IMAGE</th>
+                            <th class="border-top-0">DOCTOR CERTIFICATE IMAGE</th>
+                            <th class="border-top-0">MEDICAL LICENSE NUMBER</th>
+                            <th class="border-top-0">DESIGNATION</th>
+                            <th class="border-top-0">FIRSTNAME</th>
+                            <th class="border-top-0">LASTNAME</th>
+                            <th class="border-top-0">EMAIL</th>
+                            <th class="border-top-0">CONTACT</th>
+                            <th class="border-top-0">ADDRESS</th>
+                            <th class="border-top-0">GENDER</th>
+                            <th class="border-top-0">STARTING TIME</th>
+                            <th class="border-top-0">CLOSING TIME</th>
+                            <th class="border-top-0">IS_VARIFIRD</th>
+                            <th class="border-top-0">IS_ACTIVE</th>
+                            <th class="border-top-0">IS_CREATED</th>
+                            <th class="border-top-0">IS_UPDATE</th>
+                            <!-- <th colspan="2"></th> -->
+                            
+                        
+                        </tr>
+                    </thead>
+                    {% for i in key21 %}
+                    <tbody>
+                        <tr>
+                            <td>{{i.user_id.id}}</td>
+                            <td class="txt-oflo">{{i.id}}</td>
+                            <td>
+                                <div class="text-center">
+                                    <img src="{{MEDIA_URL}}{{i.Dor_img.url}}" class="avatar img-circle img-thumbnail" alt="avatar" width="50" height="50">
+                                </div></hr><br>
+                            </td>
+                            <td>
+                                <div class="text-center">
+                                    <img src="{{MEDIA_URL}}{{i.Certy_img.url}}" class="avatar img-circle img-thumbnail" alt="avatar" width="50" height="50">
+                                </div></hr><br>
+                            </td>
+                            <td>{{i.Medical_License_Number}}</td>
+                            <td>{{i.Designation}}</td>
+                            <td>{{i.FirstName}}</td>
+                            <td>{{i.LastName}}</td>
+                            <td>{{i.user_id.Email}}</td>
+                            <td>{{i.Contact}}</td>
+                            <td>{{i.Address}}</td>
+                            <td>{{i.Gender}}</td>
+                            <td>{{i.Start_time}}</td>
+                            <td>{{i.End_time}}</td>
+                            <td>{{i.user_id.is_varified}}</td>
+                            <td>{{i.user_id.is_active}}</td>
+                            <td>{{i.user_id.is_created}}</td>
+                            <td>{{i.user_id.is_update}}</td>
+                            <td>
+                                <form action="{% url 'admineditdoctor' pk=i.id %}" method="post">
+                                    {% csrf_token %}
+                                    
+                                    <input type="hidden" name="id" value="{{i.id}}">
+                                    <input type="submit" value="EDIT">
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{% url 'admindeletedoctor' pk=i.user_id.id %}" method="post">
+                                    {% csrf_token %}
+                                    
+                                    <input type="hidden" name="d_id" value="{{i.user_id.id}}">
+                                    <input type="submit" value="DELETE">
+                                </form>
+                            </td>
+                        </tr>
+                        
+                        
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- Recent Comments -->
+<!-- ============================================================== -->
+
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- footer -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- End footer -->
+<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Page wrapper  -->
+<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+    
+{% endblock %}
+
+
+    

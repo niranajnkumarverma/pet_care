@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- BANNER -->
+<div id="oc-fullslider" class="banner owl-carousel">
+	<div class="owl-slide">
+		<div class="item">
+			<img src="{% static 'images/index1.jpg' %}" height="1920" width="900" alt="Slider">
+			<div class="slider-pos">
+				<div class="container">
+					<div class="wrap-caption">
+						<h1 class="caption-heading">We Provide The Best<br>Care For Your Pets</h1>
+						<p class="">The best pets clinic at Ahmedabad, more than 20.000+ customers happy.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="owl-slide">
+		<div class="item">
+			<img src="{% static '/images/img1.jpg' %}" height="1920" width="900" alt="Slider">
+			<div class="slider-pos">
+				<div class="container">
+					<div class="wrap-caption">
+						<h1 class="caption-heading">We Provide The Best<br>Care For Your Pets</h1>
+						<p class="">The best pets clinic at Ahmedabad, more than 20.000+ customers happy.</p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="owl-slide">
+		<div class="item">
+			<img src="{% static '/images/index3.jpg' %}" alt="Slider">
+			<div class="slider-pos">
+				<div class="container">
+					<div class="wrap-caption">
+						<h1 class="caption-heading text-primary">We Provide The Best<br>Care For Your Pets</h1>
+						<p class="text-black">The best pets clinic at Ahmedabad, more than 20.000+ customers happy.
+						</p>
+						<!-- <a href="#" class="btn btn-primary">More About Us</a> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+
+<!-- OUR SERVICES -->
+<div class="section-services">
+	<div class="content-wrap">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<h2 class="section-heading text-center text-primary no-after mt-4 mb-5">
+						Our Services
+					</h2>
+					<p class="subheading text-center">Your pet's health and well-being are our top priority.</p>
+				</div>
+			</div>
+
+			<div class="row mt-4">
+				{% for i in service %}
+				<!-- Item 1 -->
+				<div class="col-12 col-sm-6 col-md-4">
+					<div class="rs-image-box">
+						<div class="media">
+							<img src="{{MEDIA_URL}}{{i.post_image.url}}"  style="width:266px;height:150px" alt="" class="img-fluid m-auto ">
+						</div>
+						<div class="body-text">
+							<h3 class="title">{{i.Service_Name}}</h3>
+						</div>
+					</div>
+					
+				</div>
+				{% endfor %}
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Our Doctors -->
+
+<!-- <div class="section bg-dark">
+
+
+	
+	<div class="content-wrap">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<h2 class="section-heading text-center text-primary no-after mb-5">
+						Meet Our Doctors
+					</h2>
+					<p class="subheading text-center text-light">Your pet's health and well-being are our top priority.</p>
+				</div>
+			</div>
+			<div class="row mt-4">
+
+				
+				{% for i in dr_data %}
+				<div class="col-12 col-sm-6 col-md-4">
+					<div class="rs-team-1 mb-5">
+						
+						<a href="">
+							<div class="body">
+								<img src="{{MEDIA_URL}}{{i.Dor_img.url}}" style="width:266px;height:150px" class="img-fluid m-auto" alt="avatar">
+								<div class="title">{{i.FirstName}}</div>
+								<div class="text-primary">{{i.LastName}}</div>
+								<div class="text-primary">{{i.Designation}}</div>
+								<div class="section cta bgi-cover-center"
+									data-background="images/dummy-img-1920x900-2.jpg">
+									<div class="content-wrap py-5">
+										<div class="container">
+											<div class="row align-items-center">
+												<div class="col-sm-12 col-md-12">
+													<div class="cta-1">
+
+														<div>
+															<a href="{% url 'loginpage' %}"
+																class="btn btn-secondary">Book Doctor Now!</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div> -->
+<!-- AWARDS  -->
+<div class="section">
+	<div class="content-wrap content-wrap-40">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<h2 class="section-heading text-center text-primary no-after mb-5">
+						Our Awards
+					</h2>
+					<p class="subheading text-center">Your pet's health and well-being are our top priority.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 col-sm-4 col-md-2">
+					<div class="client-img">
+						<a href="#">
+							<img src="{% static '/images/client1.png' %}" alt="" class="img-fluid">
+						</a>
+					</div>
+				</div>
+
+				<div class="col-6 col-sm-4 col-md-2">
+					<div class="client-img">
+						<a href="#"><img src="{% static '/images/client2.png' %}" alt="" class="img-fluid"></a>
+					</div>
+				</div>
+
+				<div class="col-6 col-sm-4 col-md-2">
+					<div class="client-img">
+						<a href="#"><img src="{% static '/images/client3.png' %}" alt="" class="img-fluid"></a>
+					</div>
+				</div>
+
+				<div class="col-6 col-sm-4 col-md-2">
+					<div class="client-img">
+						<a href="#"><img src="{% static '/images/client4.png' %}" alt="" class="img-fluid"></a>
+					</div>
+				</div>
+
+				<div class="col-6 col-sm-4 col-md-2">
+					<div class="client-img">
+						<a href="#"><img src="{% static '/images/client5.png' %}" alt="" class="img-fluid"></a>
+					</div>
+				</div>
+
+				<div class="col-6 col-sm-4 col-md-2">
+					<div class="client-img">
+						<a href="#"><img src="{% static '/images/client6.png' %}" alt="" class="img-fluid"></a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

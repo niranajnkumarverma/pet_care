@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<!-- BANNER -->
+<div class="section banner-page" data-background="{% static '/images/22.jpg' %}">
+	<div class="content-wrap pos-relative">
+		<div class="d-flex justify-content-center bd-highlight mb-2">
+			<div class="title-page">DOCTOR BOOKING FORM</div>
+		</div>
+		<p class="text-center text-white">Your pet's health and well-being are our top priority.</p>
+	</div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="section bg-breadcrumb">
+	<div class="content-wrap py-0 pos-relative">
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb ">
+					<li class="breadcrumb-item"><a href="/" style="color: rgb(52, 52, 121);">Home</a></li>
+
+					<li class="breadcrumb-item active" aria-current="page" style="color: rgb(216, 114, 77);">DOCTOR BOOKING FORM</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- CONTENT -->
+<div class="content-wrap">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-3 text-center">
+				<h3>Doctor Description</h3>
+				<div class="section mb-2">
+					<label class="h4 text-info d-block">Name</label>
+					<label class="h5">{{dr_des.FirstName}} {{dr_des.LastName}}</label>
+				</div>
+				<div class="section mb-2">
+					<label class="h4 text-info d-block">Designation</label>
+					<label class="h5">{{dr_des.Designation}}</label>
+				</div>
+				<div class="section mb-2">
+					<label class="h4 text-info d-block">Email</label>
+					<label class="h5">{{dr_des.user_id.Email}}</label>
+				</div>
+				<div class="section mb-2">
+					<label class="h4 text-info d-block">Mobile</label>
+					<label class="h5">{{dr_des.Contact}}</label>
+				</div>
+				<div class="section mb-2">
+					<label class="h4 text-info d-block">Available</label>
+					<label class="h5">From {{dr_des.Start_time}} to {{dr_des.End_time}}</label>
+				</div>
+				<div class="section">
+					<label class="h4 text-info d-block">Address</label>
+					<label class="h5">{{dr_des.Address}}</label>
+				</div>
+			</div>
+
+			<div class="col-9">
+				<form action="{% url 'make_appointment' pk=dr_des.id %}" class="needs-validation form-contact"
+					novalidate="false" method="POST">
+
+					{% csrf_token %}
+					<h4>FILL PET DATA</h4>
+
+					<div class="row">
+
+						<div class="col-5">
+							<label for="petType" class="h5">Pet Type and Breed</label>
+							<div class="input-group mb-3">
+								<div class="form-group">
+									<select class="form-control" name="pettype" id="petType" required="">
+										<option selected>Dog</option>
+										<option value="fish">Fish</option>
+										<option value="cat">Cat</option>
+										<option value="rabbit">Rabbit</option>
+										<option value="turtle">Turtle</option>
+									</select>
+									<div class="invalid-feedback">
+										Please choose a pet type.
+									  </div>
+								</div>
+								<div class="input-group-append">
+									<div class="form-group">
+										<input type="text" class="form-control" id="p_name" name="pbreed"
+											placeholder="Enter Pet Breed" required="">
+											<div class="invalid-feedback">
+												Please enter breed.
+											  </div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">
+								<label for="pname" class="h5">Pet Name</label>
+								<input type="text" class="form-control" id="pname" name="pname"
+									placeholder="Enter Pet name" required="">
+									<div class="invalid-feedback">
+										Please enter pet name.
+									  </div>
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">
+								<label for="pname" class="h5">Pet Gender</label>
+								<select class="form-control" name="pgender" id="pgender" required="">
+									<option value="male" selected>Male</option>
+									<option value="female">Female</option>
+								</select>
+								<div class="invalid-feedback">
+									Please choose a gender.
+								  </div>
+							</div>
+						</div>
+
+
+						<div class="col-3">
+							<label for="pname" class="h5">Pet Age</label>
+							<div class="input-group mb-3">
+								<div class="form-group">
+									<input type="number" name="pAge" id="age" class="form-control input-sm" min="1" max="20" placeholder="Age" required="">
+										<div class="invalid-feedback">
+											Please choose age.
+										  </div>
+								</div>
+								
+								<div class="input-group-append">
+									<select class="form-control" name="ym" id="ym">
+										<option value="months" selected>Months</option>
+										<option value="years">Years</option>
+									</select>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="row mt-2">
+						<div class="col-6">
+							<div class="form-group">
+
+								<label for="Adate" class="h5">Appointment Date</label>
+								<input type="date" class="form-control" id="Adate" name="Adate" required="">
+								<div class="invalid-feedback">
+									Please select date.
+								  </div>
+							</div>
+							
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<label for="ATime" class="h5">Appointment Time</label>
+								<input type="time" class="form-control" id="ATime" name="Atime" required="">
+								<div class="invalid-feedback">
+									Please select time.
+								  </div>
+							</div>
+							
+						</div>
+					</div>
+
+					<div class="row mt-2">
+						<div class="col-12">
+							<div class="form-group">
+								<label for="hissue" class="h5">Enter health issue</label>
+								<textarea class="form-control" id="hissue" name="hissue" rows="3" required></textarea>
+								<div class="invalid-feedback">
+									Please mention heath issue.
+								  </div>
+							</div>
+							
+						</div>
+						<div class="col-12 text-center mt-4">
+							<div class="form-group">
+								<div id="success"></div>
+								<input type="submit" class="btn btn-primary" value="Request Appointment">
+							</div>
+							<div class="mt-2"></div>
+							<p><em>We will send you email to confirm your appointment, after you've request an
+									appointment.</em></p>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-sm-4 col-md-4">
+			<img src="images/dummy-img-600x700.jpg" alt="" class="img-fluid">
+		</div>
+	</div>
+
+</div>
+
+<!-- CTA -->
+<div class="section cta bgi-cover-center" data-background="images/dummy-img-1920x900-2.jpg">
+	<div class="content-wrap py-5">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-sm-12 col-md-12">
+					<div class="cta-1">
+						<div class="body-text text-white mb-3">
+							<h3 class="my-1">Get 30% off for the First Time Appointment!</h3>
+							<p class="uk18 mb-0">Contact us now and make an appointment today</p>
+						</div>
+						<!-- <div class="body-action">
+			                	<a href="#" class="btn btn-secondary">Appointment Now!</a>
+			              	</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	
+	</script>
+
+{% endblock %}

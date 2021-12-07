@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="section banner-page" data-background="{% static '/images/employee1.jpg' %}">
+	<div class="content-wrap pos-relative">
+		<div class="d-flex justify-content-center bd-highlight mb-2">
+			<div class="title-page text-light">SIGNUP</div>
+		</div>
+		<!-- <p class="text-center text-white">Your pet's health and well-being are our top priority.</p> -->
+	</div>
+</div>
+
+<div class="section bg-breadcrumb">
+	<div class="content-wrap py-0 pos-relative">
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb ">
+					<li class="breadcrumb-item"><a href="{% url 'index' %}" style="color: rgb(52, 52, 121);">HOME</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page" style="color: rgb(216, 114, 77);">SIGNUP</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<form class="needs-validation ml-auto mr-auto mt-4 mb-4" novalidate="false" action="{% url 'register' %}" method="post" role="form">
+			{% csrf_token %}
+			<h2>Register for {{app_name}}</h2>
+			<div class="form-group">
+				<select class="form-control input-lg" style="text-transform: capitalize;" name="role" required="">
+					{% for role in all_roles %}
+					<option value="{{role.id}}">{{role.Role}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="form-group">
+				<input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address"
+					required>
+					<div class="invalid-feedback">Please enter your email.</div>
+			</div>
+			<div class="form-group">
+				<input type="password" name="password" id="password" class="form-control input-lg"
+					placeholder="Password" required>
+					<div class="invalid-feedback">Please enter your password.</div>
+			</div>
+
+			{% if msg %}
+			<label class="text-{{cls}}">{{msg}}</label>
+			{% endif %}
+
+			<div class="form-group text-center">
+				<input type="submit" class="btn btn-lg btn-success" value="Register">
+				<label class="ml-2 mr-2 p-2 rounded-circle" style="background-color: #000; color: #fff;">OR</label>
+				<a href="{% url 'login_page' %}" class="btn btn-lg btn-primary">Already created?</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	function check_fname() {
+		var f = document.frm.fname.value;
+		var reg = /^[A-Za-z]+$/;
+		if (f.trim() == "") {
+			document.getElementById("error").innerHTML = "please enter your fname";
+		}
+		else if (!reg.test(f)) {
+			document.getElementById("error").innerHTML = "please enter only Alphabets";
+		}
+		else {
+			document.getElementById("error").innerHTML = "";
+		}
+	}
+
+	function check_lname() {
+		var l = document.frm.lname.value;
+		var reg = /^[A-Za-z]+$/;
+		if (l.trim() == "") {
+			document.getElementById("error1").innerHTML = "please enter your lname";
+		}
+		else if (!reg.test(l)) {
+			document.getElementById("error1").innerHTML = "please enter only Alphabets";
+		}
+		else {
+			document.getElementById("error1").innerHTML = "";
+		}
+	}
+	function check_contact() {
+		var c = document.frm.contact.value;
+		var reg = /^\d{10}$/;
+		if (c.trim() == "") {
+			document.getElementById("error2").innerHTML = "please enter your contact number";
+		}
+		else if (!reg.test(c)) {
+			document.getElementById("error2").innerHTML = "please enter only 10 number";
+		}
+		else {
+			document.getElementById("error2").innerHTML = "";
+		}
+	}
+
+
+</script>
+{% endblock %}

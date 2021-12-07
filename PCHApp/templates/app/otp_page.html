@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="section banner-page" data-background="{% static '/images/employee1.jpg' %}">
+    <div class="content-wrap pos-relative">
+        <div class="d-flex justify-content-center bd-highlight mb-2">
+            <div class="title-page">LOGIN</div>
+        </div>
+        <!-- <p class="text-center text-white">Your pet's health and well-being are our top priority.</p> -->
+    </div>
+</div>
+<div class="section bg-breadcrumb">
+	<div class="content-wrap py-0 pos-relative">
+		<div class="container">
+			<nav aria-label="breadcrumb">
+			  <ol class="breadcrumb ">
+				<li class="breadcrumb-item"><a href="{% url 'index' %}" style="color: rgb(52, 52, 121);">HOME</a></li>
+				<li class="breadcrumb-item active" aria-current="page" style="color: rgb(216, 114, 77);">Forgot Password</li>
+			  </ol>
+			</nav>					
+		</div>
+	</div>
+</div>
+<div class="container">
+
+	<div class="row">
+		<form class="needs-validation ml-auto mr-auto mt-4 mb-4" novalidate="false" action="/verify_otp/{{verify_for}}/" method="post" role="form">
+			{% csrf_token %}
+				<h2 class="mb-5">Verify OTP</h2>
+
+				<div class="form-group">
+					<input type="password" name="otp" id="otp" class="form-control input-lg" placeholder="Enter OTP"
+						required>
+						<div class="invalid-feedback">
+							Please enter OTP.
+						  </div>
+				</div>
+
+				{% if verify_for == 'rec' %}
+				<div class="form-group mb-5">
+					<input type="password" name="password" id="password" class="form-control input-lg"
+						placeholder="Enter new password" required>
+						<div class="invalid-feedback">
+							Please enter password.
+						  </div>
+				</div>
+				{% endif %}
+
+				<div class="form-group text-center mt-3">
+					<input type="submit" class="btn btn-lg btn-success" value="SUBMIT">
+					<label class="ml-2 mr-2 p-2 rounded-circle" style="background-color: #000; color: #fff;">OR</label>
+					<a href="{% url 'login_page' %}" class="btn btn-lg btn-primary">LOGIN</a>
+				</div>
+		</form>
+	</div>
+
+</div>
+{% endblock %}

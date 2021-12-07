@@ -1,0 +1,24 @@
+0. Image - pending
+0. Home page - doctor and services - pending
+
+1. PetCareTaker
+--- profile - completed
+--- add service - completed
+--- manage bookings - completed
+
+2. Doctor
+--- profile - completed
+--- experience - completed
+--- education - completed
+--- clinic - completed
+--- specialization - completed
+--- manage appointments - completed
+
+3. User
+--- profile - completed
+--- pet detail add  -completed
+--- appointment - completed
+--- booking - completed
+
+4. Settings
+--- deactivate account - pending

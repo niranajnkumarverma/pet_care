@@ -1,0 +1,83 @@
+
+{% extends 'app/base_login_employee.html' %}
+
+{% block content %}
+{% load static %}
+<div class="section banner-page" data-background="{% static '/images/employee1.jpg' %}">
+    <div class="content-wrap pos-relative">
+        <div class="d-flex justify-content-center bd-highlight mb-2">
+            <div class="title-page text-light">POST SERVICES</div>
+        </div>
+        <!-- <p class="text-center text-white">Your pet's health and well-being are our top priority.</p> -->
+    </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="section bg-breadcrumb">
+    <div class="content-wrap py-0 pos-relative">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb ">
+                <li class="breadcrumb-item"><a href="{% url 'index3' %}" style="color: rgb(52, 52, 121);">Back</a></li>
+                
+                <li class="breadcrumb-item active" aria-current="page" style="color: rgb(216, 114, 77);">POST SERVICES</li>
+              </ol>
+            </nav>					
+        </div>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<div id="class" class="">
+    <div class="content-wrap">
+        <div class="container">
+            
+            
+            <div class="row">
+                <div class="col-sm-12 col-md-8">
+                
+                    <form action="{% url 'PostServices' pk=request.session.id %}" class="form-contact"  data-toggle="validator" novalidate="true" method="POST" enctype="multipart/form-data"> 
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="p_name" name="pname" placeholder="Enter Name" required="">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" id="p_img" name="p_img" placeholder="Upload Image" required="">
+                                    
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                             <textarea id="p_message" class="form-control" rows="6" name="pdes" placeholder="Enter Your Message" required=""></textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <div id="success"></div>
+                            <input type="submit" class="btn btn-primary" value="POST">
+                        </div>
+                    </form>
+                    <div class="margin-bottom-50"></div>
+                    
+
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <img src="images/dummy-img-600x700.jpg" alt="" class="img-fluid">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

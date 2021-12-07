@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="section banner-page" data-background="{% static '/images/employee1.jpg' %}">
+  <div class="content-wrap pos-relative">
+    <div class="d-flex justify-content-center bd-highlight mb-2">
+      <div class="title-page">YOUR PROFILE</div>
+    </div>
+    <!-- <p class="text-center text-white">Your pet's health and well-being are our top priority.</p> -->
+  </div>
+</div>
+<div class="section bg-breadcrumb">
+  <div class="content-wrap py-0 pos-relative">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb ">
+          <ol class="breadcrumb ">
+            <li class="breadcrumb-item"><a href="/" style="color: rgb(52, 52, 121);">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: rgb(216, 114, 77);">EDIT YOUR PROFILE
+            </li>
+          </ol>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <style>
+    .nav-link.active {
+      background-color: #F7941D !important;
+    }
+    .doc-times {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+    .doc-slot-list {
+    background-color: #F7941D;
+    border: 1px solid #F7941D;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    margin: 10px 10px 0 0;
+    padding: 6px 15px;
+}
+  </style>
+  {% with "app/"|add:user_role|add:"_content.html" as profile_template %}
+  {% include profile_template %}
+  {% endwith %}
+  
+  {% block profile_content %}
+  {% endblock %}
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+// When a new file is selected
+var setImage = function(input_ele, tmppath) {
+  
+  console.table(tmppath)
+  //Check successfully selection
+  
+  var $label = input_ele.next('label');
+  $labelText = $label.find('span'),
+  $add = $label.find('.icon-add'),
+  $edit = $label.find('.icon-edit')
+  labelDefault = $labelText.text();
+  
+  if (tmppath) {
+    $label.addClass('file-ok').css('background-image', 'url(' + tmppath + ')');
+    $add.addClass('d-none')
+    $edit.addClass('p-1').removeClass('d-none').css('background-color', '#000000b0')
+    //$labelText.text('change');
+    $labelText.addClass('d-none');
+  } else {
+    $label.removeClass('file-ok');
+    $add.removeClass('d-none')
+    $edit.addClass('d-none')
+    $labelText.text(labelDefault).removeClass('d-none');
+  }
+}
+{% if has_profile_image %}
+
+setImage($('input[name="user_image"]'), '{{profile_data.Image.url}}')
+
+{% endif %}
+$('input[type="file"]').each(function () {
+  var input_ele = $(this)
+  input_ele.on('change', function (event) {
+  // Refs
+  var $input_image = $(this),
+  $label = $input_image.next('label'),
+  $labelText = $label.find('span'),
+  $add = $label.find('.icon-add'),
+  $edit = $label.find('.icon-edit')
+  labelDefault = $labelText.text();
+
+  var fileName = $input_image.val().split('\\').pop(),
+  tmppath = URL.createObjectURL(event.target.files[0]);
+  setImage(input_ele, tmppath)
+  });
+});
+// set gender according to user profile_data
+
+var gender = $('form input[name="gender"]');
+user_gender = ".{{profile_data.Gender}}".toLowerCase()
+//alert($(user_gender).val())
+$(user_gender).attr('checked','')
+
+$(document).ready(function () {
+  
+  var loadClinics = function () {
+      $.ajax({
+          type: 'POST',
+          url: '{% url "load_dr_clinic" %}',
+          data: {
+            'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+            'id': $('#doctor_list').val(),
+          },
+          // timeout: 800000,
+          success: function (resp) {
+              //alert("SUCCESS : " + resp);
+              clinic_list = ''
+              for (i in resp.clinics) {
+                //alert(resp.clinics[i].id)
+                clinic_list += `<option value="${resp.clinics[i].id}">${resp.clinics[i].name}</option>`
+              }
+              $('#clinic_list').html(clinic_list)
+
+              console.table("SUCCESS : ", resp);
+          },
+          error: function (e) {
+              console.log("ERROR : ", e);
+          },
+      });
+  }
+  $('#doctor_list').change(function(){
+    loadClinics()
+  });
+
+  var loadServices = function () {
+      $.ajax({
+          type: 'POST',
+          url: '{% url "load_ptc_services" %}',
+          data: {
+            'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+            'id': $('#pet_care_taker_list').val(),
+          },
+          // timeout: 800000,
+          success: function (resp) {
+              //alert("SUCCESS : " + resp);
+              services_list = ''
+              for (i in resp.services) {
+                //alert(resp.services[i].id)
+                services_list += `<option value="${resp.services[i].id}">${resp.services[i].name}</option>`
+              }
+              $('#service_list').html(services_list)
+
+              console.table("SUCCESS : ", resp);
+          },
+          error: function (e) {
+              alert(e.getResponseHeader());
+              console.log("ERROR : ", e);
+          },
+      });
+  }
+
+  $('#pet_care_taker_list').change(function(){
+    loadServices()
+  });
+
+  var loadBookings = function () {
+      
+      $.ajax('{% url "booking_history" %}', {
+          dataType:"json",
+          // timeout: 800000,
+          success: function (resp) {
+              //alert("SUCCESS : " + resp);
+              history_list = ''
+              if (resp.booking_history.length) {
+                for (i in resp.booking_history) {
+                  count = 1
+                  count += parseInt(i)
+                  //alert(resp.history_list[i].id)
+                  history_list += `<tr num="${count}" booking_id="${resp.booking_history[i].id}">
+                    <td style="font-weight:bold;" class="d-none">${count}</td>
+                    <td>${resp.booking_history[i].service.s_name}</td>
+                    <td>${resp.booking_history[i].pet_care_taker.ptc_name}</td>
+                    <td>${resp.booking_history[i].pets.pet_name}</td>
+                    <td>${resp.booking_history[i].date_time}</td>
+                    <td>${resp.booking_history[i].status}</td>
+                    <td class="text-center">
+                      <a href="/remove_booking/${resp.booking_history[i].id}/" data-toggle="tooltip" data-placement="bottom" title="Remove ${resp.booking_history[i].pets.pet_name}'s booking" class="btn btn-danger p-0 pr-1 pl-1" style="min-width: min-content; font-size: small;">
+                        <i class="fa fa-times"></i>
+                      </a>
+                    </td>
+                  </tr>`
+                }
+                $('.booking-history').toggleClass('table-history');
+                $('.booking-history tbody').html(history_list)
+              } else {
+                $('.booking-history').toggleClass('table-history');
+              }
+              console.table("SUCCESS : ", resp);
+          },
+          error: function (e) {
+              console.log("ERROR : ", e);
+          },
+      });
+  }
+  //$(document).click(function(){
+    if ('{{user_role}}' == 'user'){
+      loadBookings()
+    }
+  //});
+
+  {% if user_role == 'user' %}
+  // select pet breed
+  var load_breed = function(breed_list) {
+    var breed_list_option = '';
+    for (i in breed_list) {
+      breed_list_option += `<option value="${breed_list[i]}">${breed_list[i]}</option>`
+    }
+    breed_list_option += '<option value="other">other</option>';
+    $('#pet_breed_list').html(breed_list_option);//.find('option').eq(0).attr('selected','')
+  }
+  $('#pet_type_list').change(function(){
+    var breed_list = $(this).find('option:selected').attr('breed').split(',')
+    load_breed(breed_list)
+  });
+  var default_pet = $('#pet_type_list option:selected').attr('breed').split(',')
+  console.log(default_pet)
+  load_breed(default_pet)
+  {% endif %}
+
+  
+  var selected_tab;
+  $('#v-pills-tab a').click(function() {
+    selected_tab = localStorage.getItem("selected-tab");
+    localStorage.setItem("selected-tab", $(this).attr('aria-controls'));
+    console.log( localStorage.getItem("selected-tab") )
+    
+    var inner_ele = $(`#${selected_tab}`).parent('.tab-content').find('ul');
+    hasInner = inner_ele.hasClass('inner-tabs')
+    if (hasInner) {
+      inner_ele.find('a').click(function() {
+        inner_tab = $(this).attr('id')
+        localStorage.setItem("inner-selected-tab", inner_tab)
+      });
+    }
+  })
+  
+  selected_tab = localStorage.getItem("selected-tab");
+  $(`#${selected_tab}-tab`).click();
+
+  inner_selected_tab = localStorage.getItem("inner-selected-tab");
+  
+  if (inner_selected_tab) {
+    $(`#${inner_selected_tab}`).click();
+  }
+
+})
+{% endblock %}

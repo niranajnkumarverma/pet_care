@@ -1,0 +1,90 @@
+{% extends 'app/base_login.html' %}
+
+{% block content %}
+{% load static %}
+<div class="section banner-page" data-background="{% static '/images/employee1.jpg' %}">
+	<div class="content-wrap pos-relative">
+		<div class="d-flex justify-content-center bd-highlight mb-2">
+			<div class="title-page">CONTACT</div>
+		</div>
+		<!-- <p class="text-center text-white">Your pet's health and well-being are our top priority.</p> -->
+	</div>
+</div>
+	
+
+	<!-- BREADCRUMB -->
+	<div class="section bg-breadcrumb">
+		<div class="content-wrap py-0 pos-relative">
+			<div class="container">
+			    <nav aria-label="breadcrumb">
+				  <ol class="breadcrumb ">
+				    <li class="breadcrumb-item"><a href="{% url 'index1' %}" style="color: rgb(52, 52, 121);">Home</a></li>
+				    <li class="breadcrumb-item active" aria-current="page" style="color: rgb(216, 114, 77);">Contact</li>
+				  </ol>
+				</nav>					
+			</div>
+		</div>
+	</div>
+
+	<!-- CONTENT -->
+	<div id="class" class="">
+		<div class="content-wrap">
+			<div class="container">
+
+				
+
+				<div class="row mt-4">
+					
+					<!-- Item 1 -->
+					<div class="col-12 col-sm-6 col-md-4">
+						<div class="rs-icon-info-4 mb-5">
+							<div class="icon">
+								<i class="fa fa-smile-o"></i>
+							</div>
+							<div class="body">
+								<h3 class="title">Address</h3>
+								<p class="mb-1">203 Goyal plaza,judges bunglow Road,Ahmedabad ,Gujarat 380015.</p>
+								<p>Ahmedabad ,Gujarat 380015</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Item 2 -->
+					<div class="col-12 col-sm-6 col-md-4">
+						<div class="rs-icon-info-4 mb-5">
+							<div class="icon">
+								<i class="fa fa-envelope"></i>
+							</div>
+							<div class="body">
+								<h3 class="title">Email</h3>
+								<p class="mb-1">petcare@gmail.com</p>
+								<p>pet@yourdomain.com</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Item 3 -->
+					<div class="col-12 col-sm-6 col-md-4">
+						<div class="rs-icon-info-4 mb-5">
+							<div class="icon">
+								<i class="fa fa-phone"></i>
+							</div>
+							<div class="body">
+								<h3 class="title">Contact No.</h3>
+								<p class="mb-1">(0761) 654-123987</p>
+								<p>(0761) 765-987565</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+	{% endblock %}
+	

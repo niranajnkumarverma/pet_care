@@ -1,0 +1,116 @@
+{% extends 'app/base_login_employee.html' %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="section banner-page" data-background="{% static '/images/employee1.jpg' %}">
+    <div class="content-wrap pos-relative">
+        <div class="d-flex justify-content-center bd-highlight mb-2">
+            <div class="title-page text-light">MANAGE SERVICE BOOKING</div>
+        </div>
+        <!-- <p class="text-center text-white">Your pet's health and well-being are our top priority.</p> -->
+    </div>
+</div>
+<div class="section bg-breadcrumb">
+    <div class="content-wrap py-0 pos-relative">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb ">
+                <li class="breadcrumb-item"><a href="{% url 'index3' %}" style="color: rgb(52, 52, 121);">Back</a></li>
+                
+                <li class="breadcrumb-item active" aria-current="page" style="color: rgb(216, 114, 77);">MANAGE SERVICE BOOKING</li>
+              </ol>
+            </nav>					
+        </div>
+    </div>
+</div>
+
+<div class="container">
+  <h2>Service Booking List</h2>
+  <p></p>  
+  {% if key18 %}    
+  <table class="table table-bordered">
+    <thead>
+      <tr style="background: darkseagreen;">
+        <th>Service Booking Id</th> 
+        <th>Register Id</th>
+        <th>Service Type</th>
+        <th>Pet Bread</th>
+        <th>Pet Type</th>
+        <th>Pet Name</th>
+        <th>Pet Age</th>
+        <th>Pet Gender</th>
+        <th>Booking Date</th>
+        <th colspan="2" style="text-align: center;">Status</th>
+        <th>
+
+        </th>
+        
+      </tr>
+    </thead>
+    <tbody>
+         {% for i in key18 %}
+      <tr>
+        <td>{{i.id}}</td> 
+        <td>{{i.user_id.id}}</td>
+        <td>{{i.Service_Type}}</td>
+        <td>{{i.Pet_Bread}}</td>
+        <td>{{i.Pet_Type}}</td>
+        <td>{{i.Pet_Name}}</td>
+        <td>{{i.Pet_Age}}{{i.year_Month}}</td>
+
+        <td>{{i.Pet_Gender}}</td>
+        <td>{{i.Booking_Date}}</td>
+    
+        
+        
+        {% if i.Status == 'pending' %}
+          
+        <td>
+
+          <a href="{% url 'employeebookingstatus' pt_id=i.id status='confirm' %}">Confirm</a>
+
+        </td>
+        <td>
+
+          <a href="{% url 'employeecancelappointment' pt_id=i.id status='cancel' %}">Cancel</a>
+
+        </td>
+        {% else %}
+        <td colspan="2">{{i.Status}}</td>
+        {% endif %}
+        <td>
+          <a href="{% url 'deleteservicebooking' pk=i.id %}" >DELETE</a>
+        </td>
+
+        
+
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+{% if sta1 %}
+
+  <h4 style="color: red;">{{sta1}}</h4>
+
+{% endif %}
+</body>
+
+</html>
+
+
+
+{% endblock %}

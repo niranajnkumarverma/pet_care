@@ -1,0 +1,520 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Basic Page Needs
+    ================================================== -->
+	<meta charset="utf-8">
+	<!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pets - Pet Care and Veterinary</title>
+	<meta name="description"
+		content="Pets is responsive multi-purpose HTML5 template compatible with Bootstrap 4. Take your Startup business website to the next level. it is designed for pet care, clinic, veterinary, shop, store, adopt, food, pets, businesses or any type of person or business who wants to showcase their work, services and professional way">
+	<meta name="keywords"
+		content="animals, business, cats, dogs, ecommerce, modern, pet care, pet services, pet shop, pet sitting, pets, shelter animals, store, veterinary">
+	<meta name="author" content="rometheme.net">
+
+	<!-- ==============================================
+	Favicons
+	=============================================== -->
+	<link rel="shortcut icon" href="{% static '/css/images/favicon.ico' %}">
+	<link rel="apple-touch-icon" href="{% static '/css/images/apple-touch-icon.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% static '/css/images/apple-touch-icon-72x72.png' %}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{% static '/css/images/apple-touch-icon-114x114.png' %}">
+
+	<!-- ==============================================
+	CSS VENDOR
+	=============================================== -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+		integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{% static '/fonts/fontawesome/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static '/vendor/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static '/vendor/css/owl.carousel.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static '/vendor/css/owl.theme.default.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static '/vendor/css/magnific-popup.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static '/vendor/css/animate.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static '/vendor/css/bootstrap-taginput.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static '/vendor/css/datepicker.css' %}">
+
+	<!-- ==============================================
+	Custom Stylesheet
+	=============================================== -->
+	<link rel="stylesheet" type="text/css" href="{% static 'app/css/style.css' %}" />
+
+	<script src="{% static '/vendor/js/modernizr.min.js' %}"></script>
+	<style>
+		select {
+			text-transform: capitalize !important;
+		}
+		textarea {
+			resize: none;
+		}
+		.table-history {
+			position: relative;
+		}
+		
+		.table-history::before {
+			content: attr(empty);
+			position: absolute;
+			width: max-content;
+			height: max-content;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			z-index: -1;
+		}
+		.table-responsive tbody tr {
+			position: relative;
+		}
+		
+		/* width */
+		::-webkit-scrollbar {
+                        width: 5px;
+						height: 4px
+                    }
+
+					select[multiple] {
+						overflow: auto;
+					}
+
+                    /* Track */
+                    ::-webkit-scrollbar-track {
+                        box-shadow: inset 0 0 5px grey;
+                        border-radius: 4px;
+                    }
+
+                    /* Handle */
+                    ::-webkit-scrollbar-thumb {
+                        background: #F7941D;
+                        border-radius: 4px;
+                    }
+
+                    /* Handle on hover */
+                    ::-webkit-scrollbar-thumb:hover {
+                        background: #F7941D;
+                    }
+
+			.tag-item {
+                                margin-right: 2px;
+                                color: #573000;
+                                background-color: #F7941D;
+                                padding-left: 0.4em;
+                                border-radius: 50px;
+                                padding-right: 0.6em;
+                                box-shadow: 1px 1px 3px 0px rgb(0 0 0 / 23%);
+                                cursor: pointer;
+                            }
+
+                            .tag-item-del {
+                                cursor: pointer;
+                                font-size: small;
+                            }
+
+                            .tags .tag-item,
+                            .tags .tag-item {
+                                position: relative;
+                                border: solid 1px #F7941D;
+                                background-color: transparent;
+                                border-radius: 0 50px 50px 0;
+                            }
+
+                            .tags span:not(.icon),
+                            .tags span:not(.icon) {
+                                padding-left: 0.6rem;
+                            }
+
+                            .tags span.icon,
+                            .tags span.icon,
+                            .tags .detail {
+                                position: absolute;
+                            }
+
+                            .tags .detail {
+                                width: 0;
+                                left: -25px;
+                                top: 35px;
+                                border: solid 1px #F7941D;
+                                transform: scaleX(0);
+                                transition: ease-in-out 0.2s transform;
+                                box-shadow: 1px 1px 5px 0px rgb(0 0 0 / 50%);
+                                z-index: 9999;
+                            }
+
+                            .tags span.icon,
+                            .tags span.icon {
+                                top: 0;
+                                bottom: 0;
+                                margin: auto;
+                                left: -1.5em;
+                                background-color: #F7941D;
+                                padding: 0.55em 0.75em;
+                                height: max-content;
+                                display: flex;
+                                align-items: center;
+                                border-radius: 50px;
+                                align-content: center;
+                                transform: scale(1);
+                                transition: ease-in-out 0.2s transform;
+                            }
+
+                            .tags .tag-item .detail::after {
+                                content: '';
+                                position: absolute;
+                                top: -10px;
+                                left: 5px;
+                                width: 0;
+                                height: 0;
+                                border-left: 15px solid transparent;
+                                border-right: 15px solid transparent;
+                                border-bottom: 10px solid #F7941D;
+                            }
+
+                            .tags .tag-item:hover .detail {
+                                width: max-content;
+                                transform: scaleX(1);
+                            }
+
+                            .tags .tag-item:hover span.icon,
+                            .tags .tag-item:hover span.icon {
+                                transform: scale(1.2);
+                            }
+	</style>
+</head>
+
+<body>
+
+	<!-- LOAD PAGE -->
+	<div class="animationload">
+		<div class="loader"></div>
+	</div>
+
+	{% block display_msg %}
+	{% endblock %}
+
+	<!-- BACK TO TOP SECTION -->
+	<a href="#0" class="cd-top cd-is-visible cd-fade-out">Top</a>
+
+	<!-- HEADER -->
+	<div class="header header-1">
+
+		<!-- TOP BAR -->
+		<div class="topbar d-none d-md-block">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-sm-6 col-md-6">
+						<p class="mb-0">Welcome to The Best Pets Care at Ahmedabad</p>
+					</div>
+
+					<div class="col-sm-6 col-md-6">
+						<div class="sosmed-icon d-inline-flex pull-right">
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-instagram"></i></a>
+							<a href="#"><i class="fa fa-pinterest"></i></a>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+		<!-- MIDDLE BAR -->
+		<div class="middlebar d-none d-sm-block">
+			<div class="container">
+
+
+				<div class="contact-info">
+					<!-- INFO 1 -->
+					<div class="box-icon-1">
+						<div class="icon">
+							<div class="fa fa-clock-o"></div>
+						</div>
+						<div class="body-content">
+							<div class="heading">Open Hours :</div>
+							Mon - Fri : 09:00 - 20:00
+						</div>
+					</div>
+					<!-- INFO 2 -->
+					<div class="box-icon-1">
+						<div class="icon">
+							<div class="fa fa-phone"></div>
+						</div>
+						<div class="body-content">
+							<div class="heading">Call Today :</div>
+							+62 7100 1234
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- NAVBAR SECTION -->
+		<div class="navbar-main">
+			<div class="container">
+				<nav id="navbar-example" class="navbar navbar-expand-lg">
+					<a class="navbar-brand" href="index.html">
+						<img src="{% static '/images/logo.png' %}" alt="" />
+					</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+						aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNavDropdown">
+						<ul class="navbar-nav w-100" style="position:relative">
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'index' %}">HOME</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'about' %}">ABOUT US</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'contact' %}">CONTACT</a>
+							</li>
+
+							{% if request.session.email %}
+							<style>
+								.profile_dropdown {
+									position: relative;
+								}
+								.profile_dropdown::before {
+									content: 'You are logged in as: {{user_role}} |';
+									position: absolute;
+									top: 0;
+									bottom: 0;
+									margin: auto;
+									right: 100%;
+									width: max-content;
+									height: max-content;
+									z-index: 0;
+									pointer-events: none;
+								}
+							</style>
+							<li class="nav-item dropdown dmenu" style="position: absolute;right:0">
+								<a class="nav-link dropdown-toggle profile_dropdown" href="" role="button" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+									{% if profile_data.FullName %}
+										{{profile_data.FullName}}
+									{% else %}
+										My Account
+									{% endif %}
+								</a>
+								<div class="dropdown-menu"
+									style="position:relative;right:0;width: max-content !important;">
+									<a class="nav-link dropdown-item" href="{% url 'profile_page' %}">PROFILE</a>
+									<a class="nav-link dropdown-item" href="{% url 'logout' %}">LOGOUT</a>
+								</div>
+							</li>
+							{% else %}
+
+							<li class="nav-item dropdown dmenu" style="position: absolute;right:0">
+								<a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+									My Account
+								</a>
+								<div class="dropdown-menu"
+									style="position:relative;right:0;width: max-content !important;">
+									<a class="nav-link dropdown-item" href="{% url 'register_page' %}">SIGNUP</a>
+									<a class="nav-link dropdown-item" href="{% url 'login_page' %}">LOGIN</a>
+								</div>
+							</li>
+							{% endif %}
+						</ul>
+
+					</div>
+				</nav> <!-- -->
+
+			</div>
+		</div>
+
+	</div>
+
+
+	{% block content %}
+	{% endblock %}
+
+	{% block alert %}
+	<div class="alert alert-{{msg_data.type}} alert-dismissible fade {{msg_data.display}}" role="alert"
+		style="width:max-content;position: fixed;z-index: 1111;bottom: 1em;right:1em;">
+		<strong>{{msg_data.name}}!</strong> <m>{{msg_data.msg}}</m> {% if msg_data.help_link %} <a class='alert-link' target="_blank" href='{{msg_data.help_link}}'>Get help.</a> {% endif %}
+		<div type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</div>
+	</div>
+	{% endblock %}
+
+	<div class="footer bg-overlay-secondary" data-background="{% static '/images/index3.jpg' %}">
+		<div class="content-wrap">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-md-4">
+						<div class="footer-item">
+							<img src="{% static '/images/logo_w.png' %}" alt="logo bottom" class="logo-bottom">
+							<!-- <div class="spacer-20"></div>
+							<p>We are pets center at vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque.</p>
+							<div class="spacer-20"></div>
+							<img src="{% static '/images/payment.png' %}" alt=""> -->
+						</div>
+					</div>
+
+					<div class="col-sm-6 col-md-4">
+						<div class="footer-item">
+							<div class="footer-title">
+								Opening Hours
+							</div>
+							<p>Our support available to help you 24 hours a day. We provide our best.</p>
+							<ul class="list">
+								<li>
+									Mon - Fri : 08.00 am - 20.00 pm
+								</li>
+								<li>
+									Saturday : 09.00 am - 20.00 pm
+								</li>
+								<li>
+									Sunday : We Are Closed
+								</li>
+							</ul>
+
+						</div>
+					</div>
+
+					<div class="col-sm-6 col-md-4">
+						<div class="footer-item">
+							<div class="footer-title">
+								Contact Info
+							</div>
+
+							<ul class="list-info">
+								<li>
+									<div class="info-icon text-primary">
+										<span class="fa fa-map-marker"></span>
+									</div>
+									<div class="info-text">203 Goyal plaza,judges bunglow Road,Ahmedabad ,Gujarat
+										380015.</div>
+								</li>
+								<li>
+									<div class="info-icon text-primary">
+										<span class="fa fa-phone"></span>
+									</div>
+									<div class="info-text">(0761) 654-123987</div>
+								</li>
+								<li>
+									<div class="info-icon text-primary">
+										<span class="fa fa-envelope"></span>
+									</div>
+									<div class="info-text">mail@hellopets.com</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="fcopy">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-md-6">
+						<p class="ftex">&copy; 2019 Your Company. All Rights Reserved. Designed By <span
+								class="text-primary">Rometheme</span></p>
+					</div>
+					<div class="col-sm-6 col-md-6">
+						<div class="sosmed-icon d-inline-flex float-right">
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-instagram"></i></a>
+							<a href="#"><i class="fa fa-pinterest"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- JS VENDOR -->
+	<script src="{% static 'vendor/js/jquery.min.js' %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script src="{% static 'vendor/js/bootstrap-taginput.js' %}"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+	<script src="{% static 'vendor/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'vendor/js/owl.carousel.js' %}"></script>
+	<script src="{% static 'vendor/js/jquery.magnific-popup.min.js' %}"></script>
+
+	<script src="{% static 'vendor/js/validator.min.js' %}"></script>
+	<script src="{% static 'vendor/js/form-scripts.js' %}"></script>
+	<script src="{% static 'vendor/js/datepicker.js' %}"></script>
+
+	<script src="{% static 'app/js/script.js' %}"></script>
+
+	<script>
+		// JavaScript for disabling form submissions if there are invalid fields
+		(function () {
+			'use strict';
+			window.addEventListener('load', function () {
+				// Fetch all the forms we want to apply custom Bootstrap validation styles to
+				var forms = document.getElementsByClassName('needs-validation');
+				// Loop over them and prevent submission
+				var validation = Array.prototype.filter.call(forms, function (form) {
+					form.addEventListener('submit', function (event) {
+						if (form.checkValidity() === false) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						form.classList.add('was-validated');
+					}, false);
+				});
+			}, false);
+		})();
+
+		$(document).ready(function () {
+
+			start_time = parseInt("{{time_out.start_time}}")
+			time_out_min = parseInt("{{time_out.out_point}}")
+			end_time = start_time + time_out_min
+
+			var timer = setInterval(() => {
+				date = new Date();
+				time_now = parseInt(`${date.getHours()}${date.getMinutes()}`);
+				console.log(time_now, end_time)
+				if (time_now == end_time) {
+					console.log('time out.')
+					clearInterval(timer)
+				}
+			}, 1000);
+			
+
+			$('[data-toggle="tooltip"]').tooltip()
+			$('.datepicker').datepicker({
+				format: 'yyyy-mm-dd',
+				autoclose: true,
+				startDate: "1950-01-01",//"1990-1-1",
+				endDate: "1995-12-31"
+			});
+
+			$('.input-daterange input').each(function() {
+				$(this).datepicker({
+				format: 'yyyy-mm-dd',
+				range: true,
+				//autoclose: true,
+				//startDate: "1950-01-01",//"1990-1-1",
+				//endDate: "1995-12-31"
+			});
+			});
+
+			{% block scripts %}
+			{% endblock %}
+		});
+	</script>
+</body>
+
+</html>

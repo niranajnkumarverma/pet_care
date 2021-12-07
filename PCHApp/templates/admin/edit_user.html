@@ -1,0 +1,104 @@
+
+{% extends 'app/admin/Admin_base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="white-box">
+            <div class="d-md-flex mb-3">
+                <a href="{% url 'adminmanageuser' %}"><input type="button" value="Go Back!"></a>
+                <h3 class="box-title mb-0">Edit User</h3>
+                <!-- <div class="col-md-3 col-sm-4 col-xs-6 ml-auto">
+                    <select class="form-control row border-top">
+                        <option>March 2017</option>
+                        <option>April 2017</option>
+                        <option>May 2017</option>
+                        <option>June 2017</option>
+                        <option>July 2017</option>
+                    </select>
+                </div> -->
+            </div>
+         
+            <div class="table-responsive">
+                <table class="table no-wrap">
+                {% if key25 %}
+                <form action="{% url 'adminupdateuser' pk=key25.user_id.id %}" method="post">
+                    {% csrf_token %}
+                    <thead>
+                        <tr>
+                            <th class="border-top-0">IS VERIFIED</th>
+                            
+                            <th class="border-top-0">IS ACTIVE</th>
+                            
+                            
+                        
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr>
+                            
+                            <td>
+                                
+                                <select class="form-control row border-top" name="is_verified">
+                                    <option>{{key25.user_id.is_varified}}</option>
+                                    <option>True</option>
+                                    <option>False</option>
+                            
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control row border-top" name="is_active">
+                                    <option>{{key25.user_id.is_active}}</option>
+                                    <option>True</option>
+                                    <option>False</option>
+                                    
+                                </select>
+                            </td>
+                            <td>
+                            <input type="submit" value="UPDATE">
+                            </td>
+                        </tr>
+                        
+                       
+                    </tbody>
+                </form>
+                {% endif %}
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- Recent Comments -->
+<!-- ============================================================== -->
+
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- footer -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- End footer -->
+<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Page wrapper  -->
+<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+    
+{% endblock %}
+
+
+    

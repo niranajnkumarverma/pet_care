@@ -1,0 +1,516 @@
+{% block profile_content %}
+<div class="row ml-auto mr-auto mt-4 mb-4">
+    <div class="col-2">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+          aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+        
+        <a class="nav-link" id="v-pills-mypets-tab" data-toggle="pill" href="#v-pills-mypets" role="tab"
+          aria-controls="v-pills-mypets" aria-selected="false">My Pets</a>
+        
+        <a class="nav-link" id="v-pills-appointments-tab" data-toggle="pill" href="#v-pills-appointments" role="tab"
+          aria-controls="v-pills-appointments" aria-selected="false">Appointments</a>
+        
+        <a class="nav-link" id="v-pills-bookings-tab" data-toggle="pill" href="#v-pills-bookings" role="tab"
+          aria-controls="v-pills-bookings" aria-selected="false">Booking</a>
+        
+        <a class="nav-link" id="v-pills-security-tab" data-toggle="pill" href="#v-pills-security" role="tab"
+          aria-controls="v-pills-security" aria-selected="false">Security</a>
+      
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+          aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+      </div>
+    </div>
+
+    <div class="col-10">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          <form class="needs-validation form-contact p-4" novalidate="false" action="{% url 'profile_update' %}" method="POST"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <div class="input-group mb-3">
+                    <div class="form-group wrap-custom-file">
+                      <input type="file" name="user_image" id="user_image" accept=".jpg, .png" />
+                      {% if profile_data.Image %}
+                      <label for="user_image">
+                      {% else %}
+                      <label for="user_image">
+                      {% endif %}
+                        <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <i class="icon-add fa fa-plus-circle"></i>
+                        <i class="icon-edit fa fa-edit d-none"></i>
+                      </label>
+                      <div class="invalid-feedback">Please enter fullname.</div>
+                    </div>
+                    <div class="input-group-append ml-3">
+                      <div class="form-group">
+                        {% if profile_data.FullName != '' %}
+                        <h3>{{profile_data.FullName}}</h3>
+                        {% else %}
+                        <h3>Hello Guest!</h3>
+                        {% endif %}
+        
+                        <h5>{{profile_data.Master.Email}}</h5>
+        
+                        {% if profile_data.Master.Role.Role == 'user' %}
+                        <h6>Pet Owner (customer)</h6>
+                        {% else %}
+                        <h6>Hello Guest!</h6>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="row mt-2">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="fullname" class="h6">Full Name</label>
+                    <input type="text" class="form-control" id="fullname" name="fullname" value="{{profile_data.FullName}}"
+                      placeholder="Enter full name" required="">
+                    <div class="invalid-feedback">Please enter fullname.</div>
+                  </div>
+        
+                  <div class="form-group">
+                    <label for="mobile" class="h6">Mobile</label>
+                    <input type="text" name="mobile" id="mobile" class="form-control input-sm" maxlength="10"
+                      placeholder="Enter your mobile" value="{{profile_data.Mobile}}" required>
+                    <div class="invalid-feedback">Please enter your mobile number.</div>
+                  </div>
+        
+                  <div class="form-group ">
+                    <label for="gender" class="h6">Gender</label>
+                    <div class="pt-2 form-control">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="male" name="gender" value="m" class="m custom-control-input" required>
+                        <label class="custom-control-label" for="male">Male</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="female" name="gender" value="f" class="f custom-control-input" required>
+                        <label class="custom-control-label" for="female">Female</label>
+                        <br>
+                        <div class="invalid-feedback ml-2">Please choose your gender.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="address" class="h6">Address</label>
+                    <textarea class="form-control" id="address" name="address" rows="3"
+                      required>{{profile_data.Address}}</textarea>
+                    <div class="invalid-feedback">Please provide your address.</div>
+                  </div>
+        
+                </div>
+        
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="country" class="h6">Contry</label>
+                    <input type="text" class="form-control" id="country" name="country" value="{{profile_data.Country}}"
+                      placeholder="Enter country" required="">
+                    <div class="invalid-feedback">Please enter country.</div>
+                  </div>
+        
+                  <div class="form-group">
+                    <label for="state" class="h6">State</label>
+                    <input type="text" name="state" id="state" class="form-control input-sm" maxlength="10"
+                      placeholder="Enter your state" value="{{profile_data.State}}" required>
+                    <div class="invalid-feedback">Please enter your state.</div>
+                  </div>
+        
+                  <div class="form-group">
+                    <label for="city" class="h6">City</label>
+                    <input type="text" name="city" id="city" class="form-control input-sm" maxlength="10"
+                      placeholder="Enter your city" value="{{profile_data.City}}" required>
+                    <div class="invalid-feedback">Please enter your city.</div>
+                  </div>
+        
+                  <div class="form-group">
+                    <label for="pincode" class="h6">Pincode</label>
+                    <input type="text" name="pincode" id="pincode" class="form-control input-sm" maxlength="10"
+                      placeholder="Enter your Pincode" value="{{profile_data.Pincode}}" required>
+                    <div class="invalid-feedback">Please enter your Pincode.</div>
+                  </div>
+        
+                </div>
+              </div>
+        
+              <div class="row mt-2">
+                <div class="col-12 text-center mt-4">
+                  <div class="form-group">
+                    <div id="success"></div>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+                      Update</button>
+                  </div>
+                  <div class="mt-2"></div>
+                  <p><em>We will send you email to confirm your appointment, after you've request an
+                      appointment.</em></p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-mypets" role="tabpanel" aria-labelledby="v-pills-mypets-tab">
+          <div class="row">
+            <div class="col-5">
+              <label class="h5 mb-4">My Pets</label>
+              <form class="needs-validation form-appoinment" novalidate="false" action="{% url 'create_pet_list' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="form-group col-6">
+                    <label for="petname" class="h6">Pet Name</label>
+                    <input type="text" class="form-control" id="petname" name="petname" value="" placeholder="Enter full name"
+                      required="">
+                    <div class="invalid-feedback">Please enter pet name.</div>
+                  </div>
+        
+                  <div class="form-group col-6">
+                    <label for="petage" class="h6">Pet Age /</label>
+                    <label for="year_month" class="h6">Term</label>
+                    <div class="input-group">
+                      <input type="number" min="1" class="form-control" id="petage" name="petage"
+                        value="{{profile_data.FullName}}" placeholder="pet age" required="">
+                      <div class="invalid-feedback">Please enter pet age.</div>
+        
+                      <div class="input-group-append">
+                        <select class="custom-select" name="year_month" style="border-left-color: transparent;" id="year_month">
+                          {% for ym in year_month %}
+                          <option value="{{ym.short_tag}}">{{ym.tag}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+                <div class="row">
+                  <div class="form-group col-4">
+                    <label class="h6" for="pet_type_list">Pet Type</label>
+                    <select class="custom-select" id="pet_type_list" name="pet_type">
+                      {% for pet_breed in all_breeds %}
+                      <option value="{{pet_breed.pet}}" breed="{{pet_breed.breed}}">{{pet_breed.pet}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="h6" for="pet_breed_list">Pet Breed</label>
+                    <select class="custom-select" id="pet_breed_list" name="pet_breed">
+                      
+                    </select>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="h6" for="pet_gender_list">Pet Gender</label>
+                    <select class="custom-select" id="pet_gender_list" name="pet_gender">
+                      {% for gender in pet_gender %}
+                      <option value="{{gender.short_tag}}">{{gender.tag}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+        
+                <div class="form-group pt-4 text-right">
+                  <div id="success"></div>
+                  <button type="submit" class="btn btn-primary mt-1"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Add Pet
+                    List</button>
+                </div>
+              </form>
+            </div>
+            <div class="col-7">
+              <label class="h5 mb-4">My Pet List</label>
+              {% if pet_data %}
+              <div class="table-responsive p-0 mt-4 table-history" empty="" style="height: 200px;">
+              {% else %}
+              <div class="table-responsive p-0 mt-4 table-history" empty="You don't have pet details" style="height: 200px;">
+              {% endif %}
+                  <table class="table table-striped">
+                      <thead>
+                          <tr>
+                              <th scope="col">Pet Name</th>
+                              <th scope="col">Type</th>
+                              <th scope="col">Breed</th>
+                              <th scope="col">Gender</th>
+                              <th scope="col">Age</th>
+                              <th scope="col">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for pet in pet_data %}
+                          <tr>
+                            <td>{{pet.Name}}</td>
+                            <td>{{pet.Type}}</td>
+                            <td>{{pet.Breed}}</td>
+                            <td>{{pet.Gender}}</td>
+                            <td>{{pet.Age}}</td>
+                            <td class="text-center"> 
+                              <a href="{% url 'remove_pet_detail' pk=pet.id %}" data-toggle="tooltip" data-placement="bottom" title="Remove {{pet.Name}} from pet list" class="btn btn-danger p-0 pr-1 pl-1" style="min-width: min-content; font-size: small;">
+                                <i class="fa fa-times"></i>
+                              </a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+              <div class="tags pet-tags mt-4 pl-4 d-none">
+                {% for pet in pet_data %}
+                <label class="tag-item mr-4 mb-3" tag-id="{{exp.id}}">
+                    <span class="icon"><i class="fa fa-user-md" aria-hidden="true"></i></span>
+                    <span class="">{{pet.Name}}</span>
+                    <div class="detail mt-2">
+                        <div class="card" style="width: min-content;">
+                            <h5 class="h6 card-header m-0 text-muted"><i
+                                    class="fa fa-hospital-o" aria-hidden="true"></i>
+                                {{pet.Name}}</h5>
+
+                            <div class="card-body">
+                                <label class="h5 card-subtitle mb-2"><i
+                                        class="fa fa-user-md mr-1" aria-hidden="true"></i>
+                                    {{pet.Breed}} - {{pet.Type}} - {{pet.Gender}}</label>
+                                <div class="dates" style="width: max-content;">
+                                    <i class="h5 fa fa-calendar-o mr-1" aria-hidden="true"></i>
+                                    <label class="h5">{{pet.Age}} {{pet.YearMonth}}</label>
+                                </div>
+                                <hr>
+                                <a href="{% url 'remove_pet_detail' pk=pet.id %}" class="card-link btn btn-danger m-auto"><i
+                                        class="fa fa-trash-o" aria-hidden="true"></i>
+                                    Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </label>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-appointments" role="tabpanel" aria-labelledby="v-pills-appointments-tab">
+          <div class="row">
+            <div class="col-5">
+              <label class="h5">Make an Appointment</label>
+              <form class="needs-validation form-appoinment" novalidate="false" action="{% url 'make_appointment' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="form-group col-6">
+                    <label class="h6" for="doctor_list">Select Doctor</label>
+                    <select class="custom-select" name="doctor_id" id="doctor_list" required>
+                      
+                      {% for dr in doctors %}
+                      <option value="{{dr.id}}">{{dr.FullName}}</option>
+                      {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">Please select doctor.</div>
+                  </div>
+                  <div class="form-group col-6">
+                    <label class="h6" for="clinic_list">Select Clinic</label>
+                    <select class="custom-select" name="clinic_list" id="clinic_list" required>
+                      
+                    </select>
+                    <div class="invalid-feedback">Please select clinic.</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-7">
+                    <div class="form-group">
+                      <label class="h6" for="symptoms_list" style="width: max-content;">Symptoms</label>
+                      <select class="custom-select" id="symptoms_list" name="symptoms_list" multiple required>
+                        {% for symptom in symptoms %}
+                        <option value="{{symptom}}">{{symptom}}</option>
+                        {% endfor %}
+                      </select>
+                      <div class="invalid-feedback">Please select symptoms.</div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group">
+                      <label class="h6" for="pet_list" style="width: max-content;">Select your pet</label>
+                      <select class="custom-select" id="pet_list" name="pet_list" multiple required>
+                        {% for pet in pet_data %}
+                        <option value="{{pet.id}}">{{pet.Name}}</option>
+                        {% endfor %}
+                      </select>
+                      <div class="invalid-feedback">Please select pets.</div>
+                    </div>
+                  </div>
+                </div>
+        
+                <div class="form-group">
+                  <label style="font-size: smaller; font-style: italic;" class="text-primary">Note: You can make multiple
+                    selection for pet and issue list.</label>
+                </div>
+                <div class="form-group text-right">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add Appointment
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="col-7">
+              <label class="h5">Appointment History</label>
+              {% if all_appointments %}
+              <div class="table-responsive p-0 m-0 table-history" empty="" style="height: 200px;">
+              {% else %}
+              <div class="table-responsive p-0 m-0 table-history" empty="You don't have history" style="height: 200px;">
+              {% endif %}
+              
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Pet</th>
+                      <th scope="col">Symptoms</th>
+                      <th scope="col">Date/Time</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for appointment in all_appointments %}
+                      <tr>
+                        <td>{{appointment.PetDetail.Name}}</td>
+                        <td>{{appointment.Symptoms}}</td>
+                        <td>{{appointment.DateTime}}</td>
+                        <td>{{appointment.Status}}</td>
+                        <td class="text-center">
+                          <a href="{% url 'remove_appointment' pk=appointment.id %}" data-toggle="tooltip" data-placement="bottom" title="Remove {{appointment.PetDetail.Name}}'s appointment" class="btn btn-danger p-0 pr-1 pl-1" style="min-width: min-content; font-size: small;">
+                            <i class="fa fa-times"></i>
+                          </a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-bookings" role="tabpanel" aria-labelledby="v-pills-bookings-tab">
+          <div class="row">
+            <div class="col-4">
+              <label class="h5">Book Services</label>
+              <form class="needs-validation form-appoinment" novalidate="false" action="{% url 'book_service' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label class="h6" for="pet_care_taker_list">Select Pet Care Taker</label>
+                  <select class="custom-select" name="pet_care_taker" id="pet_care_taker_list" required>
+                    <option>Select Pet Care Taker</option>
+                    {% for ptc in petcaretakers %}
+                      <option value="{{ptc.id}}">{{ptc.FullName}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="row">
+                  <div class="form-group col-6">
+                    <label class="h6" for="pet_list_2" style="width: max-content;">Select your pet</label>
+                    <select class="custom-select" id="pet_list_2" name="pet_list" multiple required>
+                      {% for pet in pet_data %}
+                      <option value="{{pet.id}}">{{pet.Name}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="form-group col-6">
+                    <label class="h6" for="service_list" style="width: max-content;">Select services</label>
+                    <select class="custom-select" name="service_list" id="service_list" multiple required>
+                    </select>
+                  </div>
+                </div>
+        
+                <div class="form-group">
+                  <label style="font-size: smaller; font-style: italic;" class="text-primary">Note: You can make multiple
+                    selection for pet and service list.</label>
+                </div>
+                <div class="form-group text-right">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add Services
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="col-8">
+              <label class="h5">Booking History</label>
+              {% if all_bookings %}
+              <div class="table-responsive p-0 m-0 booking-history table-history" style="height: 200px;">
+              {% else %}
+              <div class="table-responsive p-0 m-0 booking-history table-history" empty="You don't have history" style="height: 200px;">
+              {% endif %}
+                <table class="table table-striped">
+                  <thead style="position: sticky;top: 0">
+                    <tr>
+                      <th scope="col">Service</th>
+                      <th scope="col">Pet Care Taker</th>
+                      <th scope="col">Pet Name</th>
+                      <th scope="col">Date/Time</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for booking in all_bookings %}
+                    <tr>
+                      <td>{{booking.Service}}</td>
+                      <td>{{booking.PetCareTaker}}</td>
+                      <td>{{booking.PetDetail}}</td>
+                      <td>{{booking.Date}}</td>
+                      <td>{{booking.Status}}</td>
+                      <td class="text-center">
+                        <a href="{% url 'remove_booking' pk=booking.id %}" data-toggle="tooltip" data-placement="bottom" title="Remove {{booking.PetDetail}}'s booking" class="btn btn-danger p-0 pr-1 pl-1" style="min-width: min-content; font-size: small;">
+                          <i class="fa fa-times"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-security" role="tabpanel" aria-labelledby="v-pills-security-tab">
+          <label class="h5">Change Password</label>
+          <form class="needs-validation form-contact mt-4" novalidate="false" action="{% url 'change_password' %}"
+            method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="password" class="h6">Current Password</label>
+                  <input type="password" class="form-control" id="password" name="current_password" placeholder="Enter current password"
+                     required>
+                  <div class="invalid-feedback">Please enter current password.</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="new_password" class="h6">New Password</label>
+                  <input type="password" class="form-control" id="new_password" name="new_password" placeholder="New password"
+                   required>
+                  <div class="invalid-feedback">Please create your new password.</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 text-center mt-4">
+              <div class="form-group">
+                <div id="success"></div>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-exchange mr-2" aria-hidden="true"></i>Change</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+          <label class="h5">Account Settings</label>
+          <div class="custom-control custom-switch mt-4">
+            <input type="checkbox" class="custom-control-input" id="deactivate">
+            <label class="custom-control-label" for="deactivate">Deactivate my account</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

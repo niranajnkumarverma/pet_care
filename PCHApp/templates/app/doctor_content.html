@@ -1,0 +1,893 @@
+{% block profile_content %}
+<div class="row ml-auto mr-auto mt-4 mb-4">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+            <a class="nav-link" id="v-pills-manage-tab" data-toggle="pill" href="#v-pills-manage" role="tab"
+                aria-controls="v-pills-manage" aria-selected="false">Manage Appointments</a>
+            <a class="nav-link d-none" id="v-pills-schedule-tab" data-toggle="pill" href="#v-pills-schedule" role="tab"
+                aria-controls="v-pills-schedule" aria-selected="false">Scheduler</a>
+            <a class="nav-link" id="v-pills-security-tab" data-toggle="pill" href="#v-pills-security" role="tab"
+                aria-controls="v-pills-security" aria-selected="false">Security</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+                aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+        </div>
+    </div>
+
+    <div class="col-9">
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+                aria-labelledby="v-pills-profile-tab">
+                <ul class="nav nav-tabs inner-tabs" id="inner_tabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="personal-info-tab" data-toggle="tab" href="#personal" role="tab"
+                            aria-controls="personal" aria-selected="true">Personal</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="academic-info-tab" data-toggle="tab" href="#academic" role="tab"
+                            aria-controls="academic" aria-selected="false">Academic</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="professional-info-tab" data-toggle="tab" href="#professional" role="tab"
+                            aria-controls="professional" aria-selected="false">Professional</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="Clinic-info-tab" data-toggle="tab" href="#Clinic" role="tab"
+                            aria-controls="Clinic" aria-selected="false">Clinic</a>
+                    </li>
+                </ul>
+                <style>
+                    #profile_main_content .tab-pane {
+                        height: 80vh !important;
+                        overflow: auto;
+                    }
+                </style>
+                <div class="tab-content" id="profile_main_content">
+                    <div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-info-tab">
+                        <form class="needs-validation form-contact p-4" novalidate="false"
+                            action="{% url 'profile_update' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="input-group mb-3">
+                                            <div class="form-group wrap-custom-file">
+                                                <input type="file" name="user_image" id="user_image"
+                                                    accept=".jpg, .png" />
+                                                <label for="user_image">
+                                                    <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                    <i class="icon-add fa fa-plus-circle"></i>
+                                                    <i class="icon-edit fa fa-edit d-none"></i>
+                                                </label>
+                                                <div class="invalid-feedback">Please enter fullname.</div>
+                                            </div>
+                                            <div class="input-group-append ml-3">
+                                                <div class="form-group">
+                                                    {% if profile_data.FullName != '' %}
+                                                    <h3>{{profile_data.FullName}}</h3>
+                                                    {% else %}
+                                                    <h3>Hello Guest!</h3>
+                                                    {% endif %}
+
+                                                    <h5>{{profile_data.Master.Email}}</h5>
+
+                                                    {% if profile_data.Master.Role.Role == 'doctor' %}
+                                                    <h6>Doctor</h6>
+                                                    {% else %}
+                                                    <h6>Hello Guest!</h6>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="fullname" class="h6">Full Name</label>
+                                            <input type="text" class="form-control" id="fullname" name="fullname"
+                                                value="{{profile_data.FullName}}" placeholder="Enter full name"
+                                                required="">
+                                            <div class="invalid-feedback">Please enter fullname.</div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="mobile" class="h6">Mobile</label>
+                                            <input type="text" name="mobile" id="mobile" class="form-control input-sm"
+                                                maxlength="10" placeholder="Enter your mobile"
+                                                value="{{profile_data.Mobile}}" required>
+                                            <div class="invalid-feedback">Please enter your mobile number.</div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="dob" class="h6">DateBirth</label>
+                                            <input type="text" name="dob" id="dob"
+                                                class="form-control input-sm datepicker"
+                                                placeholder="Enter your date of birth" value="{{profile_data.DOB}}"
+                                                required>
+                                            <div class="invalid-feedback">Please enter your date of birth.</div>
+                                        </div>
+
+                                        <div class="form-group ">
+                                            <label for="gender" class="h6">Gender</label>
+                                            <div class="pt-2 form-control">
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="male" name="gender" value="m"
+                                                        class="m custom-control-input" required>
+                                                    <label class="custom-control-label" for="male">Male</label>
+                                                </div>
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="female" name="gender" value="f"
+                                                        class="f custom-control-input" required>
+                                                    <label class="custom-control-label" for="female">Female</label>
+                                                    <br>
+                                                    <div class="invalid-feedback ml-2">Please choose your gender.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="about" class="h6">About Me</label>
+                                            <textarea class="form-control" id="about" name="about" rows="3"
+                                                required>{{profile_data.About}}</textarea>
+                                            <div class="invalid-feedback">Please provide your biography.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="country" class="h6">Country</label>
+                                            <input type="text" class="form-control" id="country" name="country"
+                                                value="{{profile_data.Country}}" placeholder="Enter country"
+                                                required="">
+                                            <div class="invalid-feedback">Please enter country.</div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="state" class="h6">State</label>
+                                            <input type="text" name="state" id="state" class="form-control input-sm"
+                                                maxlength="10" placeholder="Enter your state"
+                                                value="{{profile_data.State}}" required>
+                                            <div class="invalid-feedback">Please enter your state.</div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="city" class="h6">City</label>
+                                            <input type="text" name="city" id="city" class="form-control input-sm"
+                                                maxlength="10" placeholder="Enter your city"
+                                                value="{{profile_data.City}}" required>
+                                            <div class="invalid-feedback">Please enter your city.</div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="pincode" class="h6">Pincode</label>
+                                            <input type="text" name="pincode" id="pincode" class="form-control input-sm"
+                                                maxlength="10" placeholder="Enter your city"
+                                                value="{{profile_data.Pincode}}" required>
+                                            <div class="invalid-feedback">Please enter your pincode.</div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="address" class="h6">Address</label>
+                                            <textarea class="form-control" id="address" name="address" rows="3"
+                                                required>{{profile_data.Address}}</textarea>
+                                            <div class="invalid-feedback">Please provide your address.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-12 text-center mt-4">
+                                        <div class="form-group">
+                                            <div id="success"></div>
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"
+                                                    aria-hidden="true"></i>
+                                                Update</button>
+                                        </div>
+                                        <div class="mt-2"></div>
+                                        <p><em>We will send you email to confirm your appointment, after you've request
+                                                an
+                                                appointment.</em></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="academic" role="tabpanel" aria-labelledby="academic-info-tab">
+                        <form class="needs-validation form-contact p-4" novalidate="false"
+                            action="{% url 'education_update' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="container">
+                                
+                                <div class="row mt-2">
+                                    <div class="col-7">
+                                        <div class="row mt-2">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="degree" class="h6">Degree</label>
+                                                    <input type="text" class="form-control" id="degree" name="degree"
+                                                        value="" required="">
+                                                    <div class="invalid-feedback">Please add your Degree.</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="college" class="h6">College/Institute</label>
+                                                    <input type="text" class="form-control" id="college" name="college"
+                                                        value="" required="">
+                                                    <div class="invalid-feedback">Please enter College Name.</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="endyear" style="width: max-content;" class="h6">Completion Year</label>
+                                                    <input type="text" class="form-control" id="endyear" name="endyear"
+                                                        value="" required="">
+                                                    <div class="invalid-feedback">Please Year Of Completion.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12 text-center mt-4">
+                                                <div class="form-group">
+                                                    <div id="success"></div>
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus"
+                                                            aria-hidden="true"></i>
+                                                        Add Education</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="clinic_list pr-2" style="height: 50vh;overflow: auto;">
+                                            {% for edu in education %}
+                                            <div class="card mb-2" style="width: 100%;">
+                                                <h5 class="h6 card-header m-0 text-muted"><i
+                                                        class="fa fa-hospital-o" aria-hidden="true"></i>
+                                                        {{edu.Degree}}</h5>
+    
+                                                <div class="card-body">
+                                                    <label class="h5 card-subtitle mb-2" style="width: max-content;"><i
+                                                            class="fa fa-user-md mr-1" aria-hidden="true"></i>
+                                                            {{edu.College}}</label>
+                                                    <hr>
+                                                    <div class="dates" style="width: max-content;">
+                                                        <i class="h5 fa fa-calendar-o mr-1" aria-hidden="true"></i>
+                                                        <label class="h6">Completion Year: {{edu.EndYear}}</label>
+                                                    </div>
+                                                    <hr>
+                                                    <a href="{% url 'remove_education' pk=edu.id %}" class="card-link btn btn-danger m-auto"><i
+                                                            class="fa fa-trash-o" aria-hidden="true"></i>
+                                                        Remove</a>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="professional" role="tabpanel"
+                        aria-labelledby="professional-info-tab">
+                        <!--<input type="text"  data-role="tagsinput" value="jQuery,Script,Net">-->
+                        
+                        <div class="container">
+                            <div class="row p-2">
+                                <div class="col-6">
+                                    <label for="dob" class="h5 mb-3">Add your experience.</label>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary d-block" data-toggle="modal"
+                                        data-target="#exampleModal">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Experience
+                                    </button>
+                                    <div class="tags experience-tags mt-4 pl-4">
+                                        {% for exp in experience %}
+                                        <label class="tag-item mr-4 mb-3" tag-id="{{exp.id}}">
+                                            <span class="icon"><i class="fa fa-user-md" aria-hidden="true"></i></span>
+                                            <span class="">{{exp.Designation}}</span>
+                                            <div class="detail mt-2">
+                                                <div class="card" style="width: min-content;">
+                                                    <h5 class="h6 card-header m-0 text-muted"><i
+                                                            class="fa fa-hospital-o" aria-hidden="true"></i>
+                                                        {{exp.HospitalName}}</h5>
+
+                                                    <div class="card-body">
+                                                        <label class="h5 card-subtitle mb-2"><i
+                                                                class="fa fa-user-md mr-1" aria-hidden="true"></i>
+                                                            {{exp.Designation}}</label>
+                                                        <div class="dates" style="width: max-content;">
+                                                            <i class="h5 fa fa-calendar-o mr-1" aria-hidden="true"></i>
+                                                            <label class="h5">{{exp.DateFrom}}</label>
+                                                            <label class="mr-1 ml-1"><i class="fa fa-long-arrow-right"
+                                                                    aria-hidden="true"></i></label>
+                                                            <label class="h5">{{exp.DateTo}}</label>
+                                                        </div>
+                                                        <hr>
+                                                        <a href="{% url 'remove_experience' pk=exp.id %}" class="card-link btn btn-danger m-auto"><i
+                                                                class="fa fa-trash-o" aria-hidden="true"></i>
+                                                            Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col-6 pl-4" style="border-left: solid #ddd 1px">
+                                    <label for="exp" class="h5 mb-3">Add your specialization.</label>
+                                    <form action="{% url 'specialization_update' %}" class="needs-validation form-contact" novalidate="false" method="POST">
+                                        {% csrf_token %}
+                                        <div class="input-group mb-3">
+                                            <select class="form-control" style="text-transform: capitalize;" name="specification"
+                                                required>
+                                                {% for sp in all_specialization %}
+                                                <option value="{{sp.short_tag}}">{{sp.tag}}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <div class="invalid-feedback">Please add your Degree.</div>
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-primary"
+                                                    style="width: min-content !important; min-width: 30px !important;"><i
+                                                        class="fa fa-plus" aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div class="specialized-tags mr-4 mt-4 pl-4">
+                                        {% for sp in specialization %}
+                                        <label class="tag-item mr-4">
+                                            <span class="icon"><i class="fa fa-stethoscope"
+                                                    aria-hidden="true"></i></span>
+                                            <span>{{sp.Tag}}</span>
+                                            <a href="{% url 'remove_specialization' pk=sp.id %}"><span class="tag-item-del"><i class="fa fa-times"></i></span></a>
+                                        </label>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="view-exp d-none">
+                                        {% for exp in experience %}
+                                        <div class="card" style="width: min-content;">
+                                            <h5 class="h5 card-header m-0 text-muted"><i class="fa fa-hospital-o"
+                                                    aria-hidden="true"></i>
+                                                {{exp.HospitalName}}</h5>
+
+                                            <div class="card-body">
+                                                <label class="h5 card-subtitle mb-2"><i class="fa fa-user-md mr-1"
+                                                        aria-hidden="true"></i>
+                                                    {{exp.Designation}}</label>
+                                                <div class="dates" style="width: max-content;">
+                                                    <i class="h5 fa fa-calendar-o mr-1" aria-hidden="true"></i>
+                                                    <label class="h5">{{exp.DateFrom}}</label>
+                                                    <label class="mr-1 ml-1"><i class="fa fa-long-arrow-right"
+                                                            aria-hidden="true"></i></label>
+                                                    <label class="h5">{{exp.DateTo}}</label>
+                                                </div>
+                                                <hr>
+                                                <a href="#" class="card-link btn btn-danger m-auto"><i
+                                                        class="fa fa-trash-o" aria-hidden="true"></i>
+                                                    Remove</a>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title h5" id="exampleModalLabel">Add Experience</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="needs-validation form-contact" novalidate="false"
+                                                    action="{% url 'experience_update' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <label for="hospital" class="h6">Hospital Name</label>
+                                                                <input type="text" class="form-control" id="hospital"
+                                                                    name="hospital" value="{{experience.HospitalName}}"
+                                                                    placeholder="Enter hospital name" required>
+                                                                <div class="invalid-feedback">Please enter hospital
+                                                                    name.
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="designation" class="h6">Designation</label>
+                                                                <input type="text" class="form-control" id="designation"
+                                                                    name="designation"
+                                                                    value="{{experience.Designation}}"
+                                                                    placeholder="Enter designation" required>
+                                                                <div class="invalid-feedback">Please enter your
+                                                                    designation.
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exp" class="h6">Experience</label>
+                                                                <div class="input-group input-daterange">
+                                                                    <input type="text" name="start_date"
+                                                                        class="form-control"
+                                                                        value="{{experience.DateFrom}}">
+                                                                    <div class="input-group-addon">to</div>
+                                                                    <input type="text" name="end_date"
+                                                                        class="form-control"
+                                                                        value="{{experience.DateTo}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+
+                                                        <button type="submit" class="btn btn-primary"><i
+                                                                class="fa fa-floppy-o" aria-hidden="true"></i>
+                                                            Update</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 d-none">
+                                <div class="form-group">
+                                    <label for="specification" class="h6">Specialization</label>
+                                    <input type="text" class="form-control" id="specification" name="specification"
+                                        value="{{profile_data.Specialization}}" placeholder="Enter specification">
+                                    <div class="invalid-feedback">Please enter specification.</div>
+                                </div>
+
+                                <div class="specialized-tags">
+                                    {% for sp in specialization %}
+                                    <label class="tag-item">
+                                        <span>{{sp.Tag}}</span>
+                                        <span class="tag-item-del"><i class="fa fa-times"></i></span>
+                                    </label>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade show active" id="Clinic" role="tabpanel" aria-labelledby="Clinic-info-tab">
+                    <form class="needs-validation form-contact p-4" novalidate="false"
+                        action="{% url 'clinic_update' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="input-group mb-3">
+                                        <div class="form-group wrap-custom-file">
+                                            <input type="file" name="clinic_image" id="clinic_image"
+                                                accept=".jpg, .png" />
+                                            <label for="clinic_image">
+                                                <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                <i class="icon-add fa fa-plus-circle"></i>
+                                                <i class="icon-edit fa fa-edit d-none"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="clinic_name" class="h6">Clinic Name</label>
+                                        <input type="text" class="form-control" id="clinic_name" name="clinic_name"
+                                            value="" placeholder="Enter clinic name" required="">
+                                        <div class="invalid-feedback">Please enter clinic name.</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="clinic_address" class="h6">Clinic Address</label>
+                                        <textarea type="text" class="form-control" id="clinic_address"
+                                            name="clinic_address" placeholder="Write address lines.."
+                                            required></textarea>
+                                        <div class="invalid-feedback">Please enter clinic address.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div id="success"></div>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-plus"
+                                                aria-hidden="true"></i>
+                                            Add Clinic</button>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="clinic_list pr-2" style="height: 50vh;overflow: auto;">
+                                        {% for cl in clinic %}
+                                        <div class="card mb-2" style="width: 100%;">
+                                            <h5 class="h6 card-header m-0 text-muted"><i
+                                                    class="fa fa-hospital-o" aria-hidden="true"></i>
+                                                {{cl.Name}}</h5>
+
+                                            <div class="card-body">
+                                                <label class="h5 card-subtitle mb-2"><i
+                                                        class="fa fa-user-md mr-1" aria-hidden="true"></i>
+                                                    {{cl.Address}}</label>
+                                                <hr>
+                                                <a href="{% url 'remove_clinic' pk=cl.id %}" class="card-link btn btn-danger m-auto"><i
+                                                        class="fa fa-trash-o" aria-hidden="true"></i>
+                                                    Remove</a>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-manage" role="tabpanel" aria-labelledby="v-pills-manage-tab">
+            <label class="h5">Manage Appointments</label>
+            {% if all_appointments %}
+              <div class="table-responsive p-0 mt-4 table-history" empty="" style="height: 200px;">
+              {% else %}
+              <div class="table-responsive p-0 mt-4 table-history" empty="You don't have any appointment" style="height: 200px;">
+              {% endif %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Pet Name</th>
+                            <th scope="col">Date/Time</th>
+                            <th scope="col">Symptoms</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appointment in all_appointments %}
+                        <tr>
+                          <td>{{appointment.PetDetail.Name}}</td>
+                          <td>{{appointment.Symptoms}}</td>
+                          <td>{{appointment.DateTime}}</td>
+                          {% if appointment.Status == 'pending' %}
+                          <td>
+                            <a href="{% url 'set_appointment_status' appointment_id=appointment.id status='accepted' %}" class="btn btn-primary" style="min-width: min-content;">
+                              <i class="fa fa-check"></i>
+                            </a>
+                            <a href="{% url 'set_appointment_status' appointment_id=appointment.id status='canceled' %}" class="btn btn-danger" style="min-width: min-content;">
+                              <i class="fa fa-times"></i>
+                            </a>
+                          </td>
+                          {% else %}
+                          <td>{{appointment.Status}}</td>
+                          
+                          {% endif %}
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-schedule" role="tabpanel" aria-labelledby="v-pills-schedule-tab">
+            <label class="h5">My Scheduler</label>
+
+
+            <div class="card schedule-widget mb-0">
+                <!-- Schedule Header -->
+                <div class="schedule-header">
+                    <!-- Schedule Nav -->
+                    <div class="schedule-nav">
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#slot_sunday">Sunday</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#slot_monday">Monday</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#slot_tuesday">Tuesday</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#slot_wednesday">Wednesday</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#slot_thursday">Thursday</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#slot_friday">Friday</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#slot_saturday">Saturday</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /Schedule Nav -->
+
+                </div>
+                <!-- /Schedule Header -->
+
+                <!-- Schedule Content -->
+                <div class="tab-content schedule-cont container">
+
+                    <!-- Sunday Slot -->
+                    <div id="slot_sunday" class="tab-pane fade">
+                        <h4 class="card-title d-flex justify-content-between">
+                            <span>Time Slots</span>
+                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i
+                                    class="fa fa-plus-circle"></i>
+                                Add
+                                Slot</a>
+                        </h4>
+                        <p class="text-muted mb-0">Not Available</p>
+                    </div>
+                    <!-- /Sunday Slot -->
+
+                    <!-- Monday Slot -->
+                    <div id="slot_monday" class="tab-pane fade active show">
+                        <h4 class="card-title d-flex justify-content-between">
+                            <span>Time Slots</span>
+                            <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i
+                                    class="fa fa-edit mr-1"></i>Edit</a>
+                        </h4>
+
+                        <!-- Slot List -->
+                        <div class="doc-times">
+                            <div class="doc-slot-list">
+                                8:00 pm - 11:30 pm
+                                <a href="javascript:void(0)" class="d-none delete_schedule">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- /Slot List -->
+
+                    </div>
+                    <!-- /Monday Slot -->
+
+                    <!-- Tuesday Slot -->
+                    <div id="slot_tuesday" class="tab-pane fade">
+                        <h4 class="card-title d-flex justify-content-between">
+                            <span>Time Slots</span>
+                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i
+                                    class="fa fa-plus-circle"></i>
+                                Add
+                                Slot</a>
+                        </h4>
+                        <p class="text-muted mb-0">Not Available</p>
+                    </div>
+                    <!-- /Tuesday Slot -->
+
+                    <!-- Wednesday Slot -->
+                    <div id="slot_wednesday" class="tab-pane fade">
+                        <h4 class="card-title d-flex justify-content-between">
+                            <span>Time Slots</span>
+                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i
+                                    class="fa fa-plus-circle"></i>
+                                Add
+                                Slot</a>
+                        </h4>
+                        <p class="text-muted mb-0">Not Available</p>
+                    </div>
+                    <!-- /Wednesday Slot -->
+
+                    <!-- Thursday Slot -->
+                    <div id="slot_thursday" class="tab-pane fade">
+                        <h4 class="card-title d-flex justify-content-between">
+                            <span>Time Slots</span>
+                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i
+                                    class="fa fa-plus-circle"></i>
+                                Add
+                                Slot</a>
+                        </h4>
+                        <p class="text-muted mb-0">Not Available</p>
+                    </div>
+                    <!-- /Thursday Slot -->
+
+                    <!-- Friday Slot -->
+                    <div id="slot_friday" class="tab-pane fade">
+                        <h4 class="card-title d-flex justify-content-between">
+                            <span>Time Slots</span>
+                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i
+                                    class="fa fa-plus-circle"></i>
+                                Add
+                                Slot</a>
+                        </h4>
+                        <p class="text-muted mb-0">Not Available</p>
+                    </div>
+                    <!-- /Friday Slot -->
+
+                    <!-- Saturday Slot -->
+                    <div id="slot_saturday" class="tab-pane fade">
+                        <h4 class="card-title d-flex justify-content-between">
+                            <span>Time Slots</span>
+                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i
+                                    class="fa fa-plus-circle"></i>
+                                Add
+                                Slot</a>
+                        </h4>
+                        <p class="text-muted mb-0">Not Available</p>
+                    </div>
+                    <!-- /Saturday Slot -->
+
+                </div>
+                <!-- /Schedule Content -->
+
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-security" role="tabpanel" aria-labelledby="v-pills-security-tab">
+            <label class="h5">Change Password</label>
+            <form class="needs-validation form-contact mt-4" novalidate="false" action="{% url 'change_password' %}"
+                method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="password" class="h6">Current Password</label>
+                            <input type="password" class="form-control" id="password" name="current_password"
+                                placeholder="Enter current password" required>
+                            <div class="invalid-feedback">Please enter current password.</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="new_password" class="h6">New Password</label>
+                            <input type="password" class="form-control" id="new_password" name="new_password"
+                                placeholder="New password" required>
+                            <div class="invalid-feedback">Please create your new password.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 text-center mt-4">
+                    <div class="form-group">
+                        <div id="success"></div>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-exchange mr-2"
+                                aria-hidden="true"></i>Change</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+            <label class="h5">Account Settings</label>
+            <div class="custom-control custom-switch mt-4">
+                <input type="checkbox" class="custom-control-input" id="deactivate">
+                <label class="custom-control-label" for="deactivate">Deactivate my account</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade custom-modal" id="edit_time_slot">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Time Slots</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="hours-info">
+                        <div class="row form-row hours-cont">
+                            <div class="col-12 col-md-10">
+                                <div class="row form-row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>Start Time</label>
+                                            <select class="form-control">
+                                                <option>-</option>
+                                                <option selected>12.00 am</option>
+                                                <option>12.30 am</option>
+                                                <option>1.00 am</option>
+                                                <option>1.30 am</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>End Time</label>
+                                            <select class="form-control">
+                                                <option>-</option>
+                                                <option>12.00 am</option>
+                                                <option selected>12.30 am</option>
+                                                <option>1.00 am</option>
+                                                <option>1.30 am</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-row hours-cont">
+                            <div class="col-12 col-md-10">
+                                <div class="row form-row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>Start Time</label>
+                                            <select class="form-control">
+                                                <option>-</option>
+                                                <option>12.00 am</option>
+                                                <option selected>12.30 am</option>
+                                                <option>1.00 am</option>
+                                                <option>1.30 am</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>End Time</label>
+                                            <select class="form-control">
+                                                <option>-</option>
+                                                <option>12.00 am</option>
+                                                <option>12.30 am</option>
+                                                <option selected>1.00 am</option>
+                                                <option>1.30 am</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-2"><label class="d-md-block d-sm-none d-none">&nbsp;</label><a
+                                    href="#" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a></div>
+                        </div>
+
+                        <div class="row form-row hours-cont">
+                            <div class="col-12 col-md-10">
+                                <div class="row form-row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>Start Time</label>
+                                            <select class="form-control">
+                                                <option>-</option>
+                                                <option>12.00 am</option>
+                                                <option>12.30 am</option>
+                                                <option selected>1.00 am</option>
+                                                <option>1.30 am</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>End Time</label>
+                                            <select class="form-control">
+                                                <option>-</option>
+                                                <option>12.00 am</option>
+                                                <option>12.30 am</option>
+                                                <option>1.00 am</option>
+                                                <option selected>1.30 am</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-2"><label class="d-md-block d-sm-none d-none">&nbsp;</label><a
+                                    href="#" class="btn btn-danger trash"><i class="far fa-trash-alt"></i></a></div>
+                        </div>
+
+                    </div>
+
+                    <div class="add-more mb-3">
+                        <a href="javascript:void(0);" class="add-hours"><i class="fa fa-plus-circle"></i> Add More</a>
+                    </div>
+                    <div class="submit-section text-center">
+                        <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Edit Time Slot Modal -->
+{% endblock %}

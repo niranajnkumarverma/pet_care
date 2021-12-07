@@ -1,0 +1,96 @@
+{% extends 'app/base_login_employee.html' %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  
+  <div class="section banner-page" data-background="{% static '/images/employee1.jpg' %}">
+    <div class="content-wrap pos-relative">
+        <div class="d-flex justify-content-center bd-highlight mb-2">
+            <div class="title-page text-light">SEE POST SERVICES</div>
+        </div>
+        <!-- <p class="text-center text-white">Your pet's health and well-being are our top priority.</p> -->
+    </div>
+</div>
+  <div class="section bg-breadcrumb">
+    <div class="content-wrap py-0 pos-relative">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb ">
+                <li class="breadcrumb-item"><a href="{% url 'index3' %}" style="color: rgb(52, 52, 121);">Back</a></li>
+                
+                <li class="breadcrumb-item active" aria-current="page" style="color: rgb(216, 114, 77);">SEE POST SERVICES</li>
+              </ol>
+            </nav>					
+        </div>
+    </div>
+</div>
+<div class="container">
+  {% if post %}
+                                
+                                    <center><h1 style="color:green;">{{post}}</h1></center>
+                                    <br>
+                                    <br>
+                                    <br>
+
+
+
+  {% endif %}
+  
+
+  <p></p>  
+  {% if emservice %}    
+  <h2>Post Services</h2>
+  <table class="table table-bordered text-center">
+    <thead>
+      <tr style="background: darkseagreen;">
+        <th>Id</th> 
+        <th>Employee Id</th>
+        <th>Service Image</th>
+        <th>Service Name</th>
+        <th>Service Description</th>
+        <th colspan="2" style="text-align: center;">Status</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+         {% for i in emservice %}
+      <tr>
+        <th>{{i.id}}</th> 
+        <th>{{request.session.id}}</th>
+        <th><img src="{{MEDIA_URL}}{{i.post_image.url}}" class="avatar img-circle img-thumbnail" alt="avatar" width="200" height="100"></th>
+        <th>{{i.Service_Name}}</th>
+        <th>{{i.Service_Description}}</th>
+
+        
+       
+        
+        
+        <td>
+          <a href="{% url 'employeeeditservices' pk=i.id %}"><button> EDIT </button></a>
+          
+          <a href="{% url 'employeedeletepostservices' pk=i.id %}" class="btn btn-danger">DELETE</a>
+        </td>
+      </tr>
+        {% endfor %}
+    
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+
+</body>
+</html>
+
+
+{% endblock %}

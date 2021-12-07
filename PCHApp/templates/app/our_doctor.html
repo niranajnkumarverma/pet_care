@@ -1,0 +1,89 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+{% load static %}
+<!-- BANNER -->
+<div class="section banner-page" data-background="{% static '/images/22.jpg' %}">
+	<div class="content-wrap pos-relative">
+		<div class="d-flex justify-content-center bd-highlight mb-2">
+			<div class="title-page text-light">Our Doctors Staff</div>
+		</div>
+		<p class="text-center text-white">Your pet's health and well-being are our top priority.</p>
+	</div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="section bg-breadcrumb">
+	<div class="content-wrap py-0 pos-relative">
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb ">
+					<ol class="breadcrumb ">
+						<li class="breadcrumb-item"><a href="{% url 'index1' %}" style="color: rgb(52, 52, 121);">Home</a></li>
+						<li class="breadcrumb-item active" aria-current="page" style="color: rgb(216, 114, 77);">Our Doctor Staff</li>
+					</ol>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+
+<!-- CONTENT -->
+<div id="class" class="">
+	<div class="content-wrap">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<h2 class="section-heading text-center text-primary no-after mb-5" >
+						Meet Our Doctors
+					</h2>
+					<p class="subheading text-center">Your pet's health and well-being are our top priority.</p>
+				</div>
+			</div>
+		
+			<div class="row mt-4">
+
+				<!-- Item 1 -->
+				{% for i in dr_data %}
+				<div class="col-12 col-sm-6 col-md-4">
+					<div class="rs-team-1 mb-5">
+						
+						<a href="">
+							<div class="body">
+								<img src="{{MEDIA_URL}}{{i.Dor_img.url}}" style="width:266px;height:150px" class="img-fluid m-auto" alt="avatar">
+								<div class="title">{{i.FirstName}}</div>
+								<div class="text-primary">{{i.LastName}}</div>
+								<div class="text-primary">{{i.Designation}}</div>
+								<div class="section cta bgi-cover-center"
+									data-background="images/dummy-img-1920x900-2.jpg">
+									<div class="content-wrap py-5">
+										<div class="container">
+											<div class="row align-items-center">
+												<div class="col-sm-12 col-md-12">
+													<div class="cta-1">
+
+														<div>
+															<a href="{% url 'loginpage' %}"
+																class="btn btn-secondary">Book Doctor Now!</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}

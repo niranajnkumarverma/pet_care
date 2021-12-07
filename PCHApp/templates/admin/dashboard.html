@@ -1,0 +1,91 @@
+
+
+{% extends 'app/admin/Admin_base.html' %}
+
+{% block content %}              
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="white-box">
+            <div class="d-md-flex mb-3">
+                <h3 class="box-title mb-0">ALl Data List</h3>
+                <!-- <div class="col-md-3 col-sm-4 col-xs-6 ml-auto">
+                    <select class="form-control row border-top">
+                        <option>March 2017</option>
+                        <option>April 2017</option>
+                        <option>May 2017</option>
+                        <option>June 2017</option>
+                        <option>July 2017</option>
+                    </select>
+                </div> -->
+            </div>
+            {% if key26 %}
+            <form action="" method="post">
+            {% csrf_token %}
+            <div class="table-responsive">
+                <table class="table no-wrap">
+                    <thead>
+                        <tr>
+                           
+                            <th class="border-top-0">ROLE</th>
+                            <th class="border-top-0">ID</th>
+                            
+                            <th class="border-top-0">EMAIL</th>
+                            
+                            
+                            
+                        
+                        </tr>
+                    </thead>
+                    {% for i in key26 %}
+                    <tbody>
+                        <tr>
+                            <td class="txt-oflo">{{i.Role}}</td>
+                            <td class="txt-oflo">{{i.id}}</td>
+                            
+                            <td>{{i.Email}}</td>
+                            
+                            
+                        </tr>
+                        
+                        
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- Recent Comments -->
+<!-- ============================================================== -->
+
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- footer -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- End footer -->
+<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Page wrapper  -->
+<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+ 
+
+
+               
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<!------ Include the above in your HEAD tag ---------->
+<div class="section banner-page" data-background="{% static '/images/employee1.jpg' %}">
+	<div class="content-wrap pos-relative">
+		<div class="d-flex justify-content-center bd-highlight mb-2">
+			<div class="title-page text-light">LOGIN</div>
+		</div>
+		<!-- <p class="text-center text-white">Your pet's health and well-being are our top priority.</p> -->
+	</div>
+</div>
+<div class="section bg-breadcrumb">
+	<div class="content-wrap py-0 pos-relative">
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb ">
+					<li class="breadcrumb-item"><a href="{% url 'index' %}" style="color: rgb(52, 52, 121);">HOME</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page" style="color: rgb(216, 114, 77);">LOGIN</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row" style="margin-top:20px">
+		<form class="needs-validation ml-auto mr-auto mt-4 mb-4" novalidate="false" mode='login' action="{% url 'login' %}" method="post">
+			<h2>{{app_name}} Login</h2>
+			<div class="form-group text-center">
+				<div class="custom-control custom-switch mt-4">
+					<input type="checkbox" class="custom-control-input" id="switchFormMode">
+					<label class="custom-control-label" for="switchFormMode">Switch to Forgot</label>
+				</div>
+			</div>
+			<div class="form-input-box">
+				<div class="form-group">
+					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address"
+						required="">
+						<div class="invalid-feedback">Please enter your email.</div>
+				</div>
+				<div class="form-group pwd_block"></div>
+			</div>
+			
+			<div class="form-group text-center">
+				<input type="submit" class="btn btn-lg btn-success" value="Sign In">
+				<label class="ml-2 mr-2 p-2 rounded-circle" style="background-color: #000; color: #fff;">OR</label>
+				<a href="{% url 'register_page' %}" class="btn btn-lg btn-primary">Create New Account</a>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+var switchFormMode = function(mode='forgot') {
+	var mainform = $('form'),
+		pwd_input = '<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" required><div class="invalid-feedback">Please enter your password.</div>';
+	
+	if (mode == 'login') {
+		mainform.attr({
+			'mode': 'forgot',
+			'action': '/forgot_pass/'
+		});
+		$('.pwd_block').html('')
+		mainform.find('input[type=submit]').val('Forgot')
+	} else {
+		mainform.attr({
+			'mode': 'login',
+			'action': '/login/'
+		});
+		$('.pwd_block').html(pwd_input);
+		mainform.find('input[type=submit]').val('Signin')
+	}
+}
+switchFormMode()
+
+$('#switchFormMode').change(function() {
+	switchFormMode($('form').attr('mode'))
+});
+{% endblock %}
